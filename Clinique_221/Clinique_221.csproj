@@ -267,8 +267,10 @@
     <Compile Include="Core\Fabrique.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\AntecedantMedical.cs" />
+    <Compile Include="Models\Constante.cs" />
     <Compile Include="Models\Consultation.cs" />
     <Compile Include="Models\Disponibilite.cs" />
+    <Compile Include="Models\Dto\RdvDto.cs" />
     <Compile Include="Models\Etat.cs" />
     <Compile Include="Models\Medecin.cs" />
     <Compile Include="Models\Medicament.cs" />
@@ -281,11 +283,12 @@
     <Compile Include="Models\Secretaire.cs" />
     <Compile Include="Models\Specialite.cs" />
     <Compile Include="Models\TypePrestation.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Utilisateur.cs" />
     <Compile Include="Presenter\IRdvPresenter.cs" />
     <Compile Include="Presenter\RdvPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\IRdvRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\RdvRepository.cs" />
@@ -309,6 +312,7 @@
     <Compile Include="Views\HomeForm.Designer.cs">
       <DependentUpon>HomeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\IRdvView.cs" />
     <Compile Include="Views\RdvForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -357,5 +361,6 @@
     <Content Include="Resources\rendez-vous %285%291.png" />
     <Content Include="Resources\rendez-vous.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

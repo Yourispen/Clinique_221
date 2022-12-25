@@ -1,0 +1,13 @@
+create table specialite(id int primary key IDENTITY(1,1), libelle varchar(50) NOT NULL UNIQUE);
+create table antecedent_medical(id int primary key IDENTITY(1,1), libelle varchar(50) NOT NULL UNIQUE);
+create table posologie(id int primary key IDENTITY(1,1),qte_par_prise int , nbre_prise_par_jour int, periode varchar(20));
+create table medicament(id int primary key IDENTITY(1,1), nom varchar(50) NOT NULL, code varchar(50) NOT NULL UNIQUE);
+create table ordonnance(id int primary key IDENTITY(1,1), date_ordonnance date NOT NULL);
+create table ordonnance_medicament(qte int, ordonnance_id int, medicament_id int, posologie_id int, FOREIGN KEY(ordonnance_id) REFERENCES ordonnance(id), FOREIGN KEY(medicament_id) REFERENCES medicament(id), FOREIGN KEY(posologie_id) REFERENCES posologie(id));
+create table type_prestation(id int primary key IDENTITY(1,1), libelle varchar(50) NOT NULL UNIQUE);
+create table utilisateur(id int primary key IDENTITY(1,1), email varchar(50) UNIQUE, password varchar(20), nom_complet varchar(50), role varchar(30), sexe varchar(1), type_medecin varchar(30), disponibilite varchar(20), code varchar(30) UNIQUE, date_naissance date, type_patient varchar(30), nom_parent varchar(50));
+create table patient_antecedent_medical(patient_id int, antecedent_medical_id int, FOREIGN KEY(patient_id) REFERENCES utilisateur(id), FOREIGN KEY(antecedent_medical_id) REFERENCES antecedent_medical(id));
+create table rdv(id int primary key IDENTITY(1,1), date_rdv date NOT NULL, etat varchar(20), patient_id int, medecin_id int, rp_id int, FOREIGN KEY(patient_id) REFERENCES utilisateur(id), FOREIGN KEY(medecin_id) REFERENCES utilisateur(id), FOREIGN KEY(rp_id) REFERENCES utilisateur(id));
+create table consultation(id int primary key IDENTITY(1,1), date_consultation date NOT NULL, etat varchar(20), patient_id int, medecin_id int, ordonnance_id int, FOREIGN KEY(patient_id) REFERENCES utilisateur(id), FOREIGN KEY(medecin_id) REFERENCES utilisateur(id), FOREIGN KEY(ordonnance_id) REFERENCES ordonnance(id));
+create table consultation_type_prestation(consultation_id int, type_prestation_id int, FOREIGN KEY(consultation_id) REFERENCES consultation(id), FOREIGN KEY( type_prestation_id) REFERENCES  type_prestation(id));
+create table prestation(id int primary key IDENTITY(1,1), date_prestation date NOT NULL, etat varchar(20), patient_id int, type_prestation_id int, rp_id int, FOREIGN KEY(patient_id) REFERENCES utilisateur(id), FOREIGN KEY( type_prestation_id) REFERENCES  type_prestation(id), FOREIGN KEY(rp_id) REFERENCES utilisateur(id));

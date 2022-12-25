@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Clinique_221.Models
 {
-    public class Medicament
+    public class Constante
     {
         private int id;
-        private string code;
-        private string nom;
+        private string libelle;
 
-        public string Code { get => code; set => code = value; }
-        public string Nom { get => nom; set => nom = value; }
         public int Id { get => id; set => id = value; }
+        public string Libelle { get => libelle; set => libelle = value; }
     }
 }

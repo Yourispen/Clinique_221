@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Clinique_221.Models
 {
-    public class Rp:User
+    public class Rp:Utilisateur
     {
     }
 }

@@ -1,4 +1,6 @@
-﻿using Clinique_221.Views;
+﻿using Clinique_221.Core;
+using Clinique_221.Presenter;
+using Clinique_221.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +19,11 @@ namespace Clinique_221
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AjoutRdvForm());
+
+            //Création des objets
+            IRdvView view= new RdvForm();
+            IRdvPresenter rdvPresenter = new RdvPresenter(view,Fabrique.getService());
+            Application.Run(view as RdvForm);
         }
     }
 }

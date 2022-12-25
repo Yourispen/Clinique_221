@@ -10,7 +10,7 @@ namespace Clinique_221.Models
     {
         Specialiste,Generaliste
     }
-    public class Medecin:User
+    public class Medecin:Utilisateur
     {
         private TypeMedecin typeMedecin;
         private Specialite specialite;
@@ -23,5 +23,10 @@ namespace Clinique_221.Models
         public Disponibilite Disponibilite { get => disponibilite; set => disponibilite = value; }
         public List<Rdv> Rdvs { get => rdvs; set => rdvs = value; }
         public List<Consultation> Consultations { get => consultations; set => consultations = value; }
+
+        public override string ToString()
+        {
+            return NomComplet;
+        }
     }
 }

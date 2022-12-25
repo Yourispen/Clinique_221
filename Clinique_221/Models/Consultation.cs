@@ -9,6 +9,6 @@ namespace Clinique_221.Models
 {
     public class Consultation
     {
-        private SqlDateTime date; 
+        private DateTime date; 
     }
 }

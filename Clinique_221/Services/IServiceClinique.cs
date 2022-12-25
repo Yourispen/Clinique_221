@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clinique_221.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace Clinique_221.Services
 {
     public interface IServiceClinique
     {
+        List<Rdv> listerRdv();
     }
 }
