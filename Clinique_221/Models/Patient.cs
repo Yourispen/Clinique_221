@@ -9,7 +9,7 @@ namespace Clinique_221.Models
 {
     public enum TypePatient
     {
-        Enfant,Adulte
+        Adulte,Enfant
     }
     public class Patient : Utilisateur
     {

@@ -32,13 +32,15 @@ namespace Clinique_221.Views
                     eventRecherchePatient.Invoke(this, EventArgs.Empty);
                 }
             };
+            dtgvListeRdv.SelectionChanged += delegate { eventSelectionLigneDtgv.Invoke(this, EventArgs.Empty); };
 
         }
 
+        //les champs
         public string TxtRecherchePatient 
         { 
-            get => txtRecherchePatient.Text; 
-            set => txtRecherchePatient.Text=value.Trim(); 
+            get => txtRecherchePatient.Text.Trim(); 
+            set => txtRecherchePatient.Text=value; 
         }
 
         public event EventHandler eventRecherchePatient;
@@ -46,6 +48,7 @@ namespace Clinique_221.Views
         public event EventHandler eventAjouterRdv;
         public event EventHandler eventAnnulerRdv;
         public event EventHandler eventValiderRdv;
+        public event EventHandler eventSelectionLigneDtgv;
 
         public void setRdvBindingSource(BindingSource rdvList)
         {

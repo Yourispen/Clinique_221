@@ -284,14 +284,22 @@
     <Compile Include="Models\Specialite.cs" />
     <Compile Include="Models\TypePrestation.cs" />
     <Compile Include="Models\Utilisateur.cs" />
+    <Compile Include="Presenter\AjoutRdvPresenter.cs" />
+    <Compile Include="Presenter\IAjoutRdvPresenter.cs" />
     <Compile Include="Presenter\IRdvPresenter.cs" />
     <Compile Include="Presenter\RdvPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\IMedecinRepository.cs" />
+    <Compile Include="Repository\ITypePrestationRepository.cs" />
     <Compile Include="Repository\IRdvRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\ISpecialiteRepository.cs" />
+    <Compile Include="Repository\MedecinRepository.cs" />
+    <Compile Include="Repository\TypePrestationRepository.cs" />
     <Compile Include="Repository\RdvRepository.cs" />
+    <Compile Include="Repository\SpecialiteRepository.cs" />
     <Compile Include="Services\IServiceClinique.cs" />
     <Compile Include="Services\ServiceClinique.cs" />
     <Compile Include="Views\AjoutRdvForm.cs">
@@ -299,6 +307,12 @@
     </Compile>
     <Compile Include="Views\AjoutRdvForm.Designer.cs">
       <DependentUpon>AjoutRdvForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConnexionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ConnexionForm.Designer.cs">
+      <DependentUpon>ConnexionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Form1.cs">
       <SubType>Form</SubType>
@@ -312,6 +326,8 @@
     <Compile Include="Views\HomeForm.Designer.cs">
       <DependentUpon>HomeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\IAjoutRdvView.cs" />
+    <Compile Include="Views\IConnexionView.cs" />
     <Compile Include="Views\IRdvView.cs" />
     <Compile Include="Views\RdvForm.cs">
       <SubType>Form</SubType>
@@ -330,6 +346,9 @@
     </Compile>
     <EmbeddedResource Include="Views\AjoutRdvForm.resx">
       <DependentUpon>AjoutRdvForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ConnexionForm.resx">
+      <DependentUpon>ConnexionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

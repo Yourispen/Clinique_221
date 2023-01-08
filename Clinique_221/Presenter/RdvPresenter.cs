@@ -13,6 +13,7 @@ namespace Clinique_221.Presenter
 {
     public class RdvPresenter:IRdvPresenter
     {
+        Rdv rdvSelect;
         //Dependance et couplage faible
         private IRdvView rdvView;
         private IServiceClinique serviceClinique;
@@ -47,6 +48,12 @@ namespace Clinique_221.Presenter
             rdvView.eventRecherchePatient += rechercherPatientHandle;
             rdvView.eventAnnulerRdv += annulerRdvHandle;
             rdvView.eventValiderRdv += validerRdvHandle;
+            rdvView.eventSelectionLigneDtgv += selectionRdvHandle;
+        }
+
+        private void selectionRdvHandle(object sender, EventArgs e)
+        {
+            rdvSelect=bindingRdvListe.Current as Rdv;
         }
 
         private void validerRdvHandle(object sender, EventArgs e)
@@ -61,7 +68,16 @@ namespace Clinique_221.Presenter
 
         private void rechercherPatientHandle(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (!string.IsNullOrWhiteSpace(rdvView.TxtRecherchePatient))
+            {
+                rdvListe=Fabrique.getService().listerRdvParPatient(rdvView.TxtRecherchePatient);
+            }
+            else
+            {
+                rdvListe = Fabrique.getService().listerRdv();
+            }
+            bindingRdvListe.DataSource = rdvListe;
+
         }
 
         private void ajouterRdvHandle(object sender, EventArgs e)

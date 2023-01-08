@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Clinique_221.Models
+namespace Clinique_221.Views
 {
-    public enum Etat
+    public interface IConnexionView
     {
-        Annule,Archive,EnCours,Valide
     }
 }

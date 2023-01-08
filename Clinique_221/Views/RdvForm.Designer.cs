@@ -31,13 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RdvForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnAnnulerRdv = new System.Windows.Forms.Button();
+            this.btnValiderRdv = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.btnRecherche = new System.Windows.Forms.PictureBox();
             this.txtRecherchePatient = new System.Windows.Forms.TextBox();
             this.btnAjouterRdv = new System.Windows.Forms.Button();
             this.dtgvListeRdv = new System.Windows.Forms.DataGridView();
-            this.btnValiderRdv = new System.Windows.Forms.Button();
-            this.btnAnnulerRdv = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnRecherche)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvListeRdv)).BeginInit();
@@ -60,6 +60,34 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(929, 463);
             this.panel1.TabIndex = 0;
+            // 
+            // btnAnnulerRdv
+            // 
+            this.btnAnnulerRdv.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnAnnulerRdv.BackColor = System.Drawing.Color.Tomato;
+            this.btnAnnulerRdv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnnulerRdv.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAnnulerRdv.ForeColor = System.Drawing.Color.White;
+            this.btnAnnulerRdv.Location = new System.Drawing.Point(783, 100);
+            this.btnAnnulerRdv.Name = "btnAnnulerRdv";
+            this.btnAnnulerRdv.Size = new System.Drawing.Size(129, 31);
+            this.btnAnnulerRdv.TabIndex = 12;
+            this.btnAnnulerRdv.Text = "Annuler";
+            this.btnAnnulerRdv.UseVisualStyleBackColor = false;
+            // 
+            // btnValiderRdv
+            // 
+            this.btnValiderRdv.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnValiderRdv.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(169)))), ((int)(((byte)(79)))));
+            this.btnValiderRdv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnValiderRdv.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnValiderRdv.ForeColor = System.Drawing.Color.White;
+            this.btnValiderRdv.Location = new System.Drawing.Point(783, 54);
+            this.btnValiderRdv.Name = "btnValiderRdv";
+            this.btnValiderRdv.Size = new System.Drawing.Size(129, 31);
+            this.btnValiderRdv.TabIndex = 11;
+            this.btnValiderRdv.Text = "Valider";
+            this.btnValiderRdv.UseVisualStyleBackColor = false;
             // 
             // dateTimePicker1
             // 
@@ -129,34 +157,6 @@
             this.dtgvListeRdv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvListeRdv.Size = new System.Drawing.Size(759, 360);
             this.dtgvListeRdv.TabIndex = 0;
-            // 
-            // btnValiderRdv
-            // 
-            this.btnValiderRdv.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnValiderRdv.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(169)))), ((int)(((byte)(79)))));
-            this.btnValiderRdv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnValiderRdv.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnValiderRdv.ForeColor = System.Drawing.Color.White;
-            this.btnValiderRdv.Location = new System.Drawing.Point(783, 54);
-            this.btnValiderRdv.Name = "btnValiderRdv";
-            this.btnValiderRdv.Size = new System.Drawing.Size(129, 31);
-            this.btnValiderRdv.TabIndex = 11;
-            this.btnValiderRdv.Text = "Valider";
-            this.btnValiderRdv.UseVisualStyleBackColor = false;
-            // 
-            // btnAnnulerRdv
-            // 
-            this.btnAnnulerRdv.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnAnnulerRdv.BackColor = System.Drawing.Color.Tomato;
-            this.btnAnnulerRdv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAnnulerRdv.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAnnulerRdv.ForeColor = System.Drawing.Color.White;
-            this.btnAnnulerRdv.Location = new System.Drawing.Point(783, 100);
-            this.btnAnnulerRdv.Name = "btnAnnulerRdv";
-            this.btnAnnulerRdv.Size = new System.Drawing.Size(129, 31);
-            this.btnAnnulerRdv.TabIndex = 12;
-            this.btnAnnulerRdv.Text = "Annuler";
-            this.btnAnnulerRdv.UseVisualStyleBackColor = false;
             // 
             // RdvForm
             // 

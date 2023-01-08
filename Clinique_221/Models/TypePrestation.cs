@@ -10,5 +10,13 @@ namespace Clinique_221.Models
     {
         private int id;
         private string libelle;
+
+        public int Id { get => id; set => id = value; }
+        public string Libelle { get => libelle; set => libelle = value; }
+
+        public override string ToString()
+        {
+            return Libelle;
+        }
     }
 }

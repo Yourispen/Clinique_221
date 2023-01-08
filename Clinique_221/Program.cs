@@ -21,9 +21,11 @@ namespace Clinique_221
             Application.SetCompatibleTextRenderingDefault(false);
 
             //Création des objets
-            IRdvView view= new RdvForm();
-            IRdvPresenter rdvPresenter = new RdvPresenter(view,Fabrique.getService());
-            Application.Run(view as RdvForm);
+            //IRdvView rdvView= new RdvForm();
+            //IRdvPresenter rdvPresenter = new RdvPresenter(rdvView, Fabrique.getService());
+            IAjoutRdvView ajoutRdvView = new AjoutRdvForm();
+            IAjoutRdvPresenter ajoutRdvPresenter = new AjoutRdvPresenter(ajoutRdvView, Fabrique.getService());
+            Application.Run(ajoutRdvView as AjoutRdvForm);
         }
     }
 }

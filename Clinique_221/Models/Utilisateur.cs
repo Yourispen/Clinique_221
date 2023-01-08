@@ -12,7 +12,7 @@ namespace Clinique_221.Models
     }
     public enum Sexe
     {
-        M,F
+        F,M
     }
     public class Utilisateur
     {

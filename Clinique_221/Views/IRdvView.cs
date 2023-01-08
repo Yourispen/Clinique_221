@@ -17,6 +17,7 @@ namespace Clinique_221.Views
         event EventHandler eventAjouterRdv;
         event EventHandler eventAnnulerRdv;
         event EventHandler eventValiderRdv;
+        event EventHandler eventSelectionLigneDtgv;
         //Methodes
         void setRdvBindingSource(BindingSource RdvList);
     }
