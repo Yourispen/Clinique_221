@@ -20,8 +20,16 @@ namespace Clinique_221.Core
                 ISpecialiteRepository specialiteRepo = new SpecialiteRepository(chaineDeConnexion);
                 IMedecinRepository medecinRepo = new MedecinRepository(chaineDeConnexion,specialiteRepo);
                 ITypePrestationRepository typePrestationRepo = new TypePrestationRepository(chaineDeConnexion);
+                IAntecedentMedicalRepository antecedentMedicalRepo = new AntecedentMedicalRepository(chaineDeConnexion);
+                IPatientRepository patientRepo = new PatientRepository(chaineDeConnexion,antecedentMedicalRepo);
+                IMedicamentRepository medicamentRepo = new MedicamentRepository(chaineDeConnexion);
+                IOrdonnanceMedicamentRepository ordonnanceMedicamentRepo = new OrdonnanceMedicamentRepository(chaineDeConnexion,medicamentRepo);
+                IConstanteRepository constanteRepo = new ConstanteRepository(chaineDeConnexion);
+                IOrdonnanceRepository ordonnanceRepo =new OrdonnanceRepository(chaineDeConnexion,ordonnanceMedicamentRepo,constanteRepo);
+                IConsultationRepository consultationRepo = new ConsultationRepository(chaineDeConnexion, ordonnanceRepo);
                 IRdvRepository rdvRepo = new RdvRepository(chaineDeConnexion);
-                serviceClinique = new ServiceClinique(rdvRepo,medecinRepo,typePrestationRepo,specialiteRepo);
+
+                serviceClinique = new ServiceClinique(rdvRepo,medecinRepo,typePrestationRepo,specialiteRepo,patientRepo,antecedentMedicalRepo);
             }
             return serviceClinique;
         }

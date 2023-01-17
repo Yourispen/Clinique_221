@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Clinique_221.Models
 {
-    public class Rp:Utilisateur
+    public class Rp : Utilisateur
     {
+        public Rp()
+        {
+            Role = Role.Rp;
+        }
     }
 }

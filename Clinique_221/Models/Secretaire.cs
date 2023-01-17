@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Clinique_221.Models
 {
-    public class Secretaire:Utilisateur
+    public class Secretaire : Utilisateur
     {
+        public Secretaire()
+        {
+            Role = Role.Secretaire;
+        }
     }
 }

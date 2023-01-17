@@ -9,34 +9,33 @@ using System.Threading.Tasks;
 
 namespace Clinique_221.Repository
 {
-    public class SpecialiteRepository : BaseRepository, ISpecialiteRepository
+    public class MedicamentRepository : BaseRepository, IMedicamentRepository
     {
-        private readonly string SQL_SELECT_BY_ID = "SELECT * FROM specialite where id=@idSpecialite";
+        private readonly string SQL_SELECT_BY_ID = "SELECT * FROM medicament where id=@idMedicament";
 
-        public SpecialiteRepository(string chaineDeConnexion)
+        public MedicamentRepository(string chaineDeConnexion)
         {
             ChaineDeConnexion = chaineDeConnexion;
         }
 
-        public void delete(Specialite obj)
+        public void delete(Medicament obj)
         {
             throw new NotImplementedException();
         }
 
-        public List<Specialite> findAll()
+        public List<Medicament> findAll()
         {
             throw new NotImplementedException();
         }
 
-        public List<Specialite> findAllByDate(DateTime date)
+        public List<Medicament> findAllByDate(DateTime date)
         {
             throw new NotImplementedException();
         }
 
-        public Specialite findById(int id)
+        public Medicament findById(int id)
         {
-            Specialite specialite=null;
-            //1-Ouvrir la connexion
+            Medicament medicament = null;
             using (var connexion = new SqlConnection(ChaineDeConnexion))
             using (var cmd = connexion.CreateCommand())
             {
@@ -44,20 +43,16 @@ namespace Clinique_221.Repository
                 {
                     connexion.Open();
                     cmd.Connection = connexion;
-                    //2-Preparer la requete
                     cmd.CommandText = SQL_SELECT_BY_ID;
-                    //Changer les parametres par leurs valeurs
-                    cmd.Parameters.Add("@idSpecialite", SqlDbType.Int).Value = id;
-                    //3-Executer la requete et recuperer les données
+                    cmd.Parameters.Add("@idMedicament", SqlDbType.Int).Value = id;
                     SqlDataReader sdr = cmd.ExecuteReader();
-                    //4-parcours de requete(select)=>Mapping relationnel vers Objet (de la base de données vers l'app)
                     if (sdr.Read())
                     {
-                        //Mapping relationnel vers Objet(de la base de données vers l'app)
-                        specialite = new Specialite()
+                        medicament = new Medicament()
                         {
                             Id = (int)sdr[0],
-                            Libelle = (string)sdr[1],
+                            Code = (string)sdr[2],
+                            Nom = (string)sdr[1]
                         };
                     }
                     sdr.Close();
@@ -71,24 +66,23 @@ namespace Clinique_221.Repository
                 {
                     cmd.Dispose();
 
-                    //5-Fermeture de la connexion
                     connexion.Close();
                 }
             }
-            return specialite;
+            return medicament;
         }
 
-        public Specialite persist(Specialite obj)
+        public Medicament persist(Medicament obj)
         {
             throw new NotImplementedException();
         }
 
-        public Specialite remplirData(SqlDataReader sdr)
+        public Medicament remplirData(SqlDataReader sdr)
         {
             throw new NotImplementedException();
         }
 
-        public void update(Specialite obj)
+        public void update(Medicament obj)
         {
             throw new NotImplementedException();
         }

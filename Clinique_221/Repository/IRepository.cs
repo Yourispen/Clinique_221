@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,10 @@ namespace Clinique_221.Repository
         List<T> findAll();
         List<T> findAllByDate(DateTime date);
         T findById(int id);
-        void save(T obj);
+        T persist(T obj);
         void update(T obj);
         void delete(T obj);
+        T remplirData(SqlDataReader sdr);
 
     }
 }

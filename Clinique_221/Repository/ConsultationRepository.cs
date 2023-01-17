@@ -9,34 +9,36 @@ using System.Threading.Tasks;
 
 namespace Clinique_221.Repository
 {
-    public class SpecialiteRepository : BaseRepository, ISpecialiteRepository
+    public class ConsultationRepository : BaseRepository, IConsultationRepository
     {
-        private readonly string SQL_SELECT_BY_ID = "SELECT * FROM specialite where id=@idSpecialite";
+        private readonly string SQL_SELECT_BY_ID = "SELECT * FROM consultation where id=@idConsultation";
 
-        public SpecialiteRepository(string chaineDeConnexion)
+        IOrdonnanceRepository ordonnanceRepo;
+
+        public ConsultationRepository(string chaineDeConnexion,IOrdonnanceRepository ordonnanceRepo)
         {
             ChaineDeConnexion = chaineDeConnexion;
+            this.ordonnanceRepo = ordonnanceRepo;
         }
 
-        public void delete(Specialite obj)
+        public void delete(Consultation obj)
         {
             throw new NotImplementedException();
         }
 
-        public List<Specialite> findAll()
+        public List<Consultation> findAll()
         {
             throw new NotImplementedException();
         }
 
-        public List<Specialite> findAllByDate(DateTime date)
+        public List<Consultation> findAllByDate(DateTime date)
         {
             throw new NotImplementedException();
         }
 
-        public Specialite findById(int id)
+        public Consultation findById(int id)
         {
-            Specialite specialite=null;
-            //1-Ouvrir la connexion
+            Consultation consultation = null;
             using (var connexion = new SqlConnection(ChaineDeConnexion))
             using (var cmd = connexion.CreateCommand())
             {
@@ -44,21 +46,24 @@ namespace Clinique_221.Repository
                 {
                     connexion.Open();
                     cmd.Connection = connexion;
-                    //2-Preparer la requete
                     cmd.CommandText = SQL_SELECT_BY_ID;
-                    //Changer les parametres par leurs valeurs
-                    cmd.Parameters.Add("@idSpecialite", SqlDbType.Int).Value = id;
-                    //3-Executer la requete et recuperer les données
+                    cmd.Parameters.Add("@idConsultation", SqlDbType.Int).Value = id;
                     SqlDataReader sdr = cmd.ExecuteReader();
-                    //4-parcours de requete(select)=>Mapping relationnel vers Objet (de la base de données vers l'app)
                     if (sdr.Read())
                     {
-                        //Mapping relationnel vers Objet(de la base de données vers l'app)
-                        specialite = new Specialite()
+                        consultation = new Consultation()
                         {
                             Id = (int)sdr[0],
-                            Libelle = (string)sdr[1],
+                            DateConsultation = (DateTime)sdr[1],
+                            EtatConsultation = (Etat)Enum.Parse(typeof(Etat), sdr[2].ToString())
                         };
+                        int idOrdonnance = (int)sdr[3];
+                        if(idOrdonnance != 0)
+                        {
+                            Ordonnance ordonnance = ordonnanceRepo.findById(idOrdonnance);
+                            ordonnance.Consultation=consultation;
+                            consultation.Ordonnance=ordonnance;
+                        }
                     }
                     sdr.Close();
                 }
@@ -71,24 +76,23 @@ namespace Clinique_221.Repository
                 {
                     cmd.Dispose();
 
-                    //5-Fermeture de la connexion
                     connexion.Close();
                 }
             }
-            return specialite;
+            return consultation;
         }
 
-        public Specialite persist(Specialite obj)
+        public Consultation persist(Consultation obj)
         {
             throw new NotImplementedException();
         }
 
-        public Specialite remplirData(SqlDataReader sdr)
+        public Consultation remplirData(SqlDataReader sdr)
         {
             throw new NotImplementedException();
         }
 
-        public void update(Specialite obj)
+        public void update(Consultation obj)
         {
             throw new NotImplementedException();
         }

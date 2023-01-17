@@ -28,7 +28,6 @@ namespace Clinique_221.Repository
         {
             List<Medecin> medecins = new List<Medecin>();
 
-            //1-Ouvrir la connexion
             using (var connexion = new SqlConnection(ChaineDeConnexion))
             using (var cmd = connexion.CreateCommand())
             {
@@ -36,14 +35,10 @@ namespace Clinique_221.Repository
                 {
                     connexion.Open();
                     cmd.Connection = connexion;
-                    //2-Preparer la requete
                     cmd.CommandText = SQL_SELECT_ALL;
-                    //3-Executer la requete et recuperer les données
                     SqlDataReader sdr = cmd.ExecuteReader();
-                    //4-parcours de requete(select)=>Mapping relationnel vers Objet (de la base de données vers l'app)
                     while (sdr.Read())
                     {
-                        //Mapping relationnel vers Objet(de la base de données vers l'app)
                         Medecin medecin = new Medecin()
                         {
                             Id = (int)sdr[0],
@@ -55,7 +50,6 @@ namespace Clinique_221.Repository
                             TypeMedecin = (TypeMedecin)Enum.Parse(typeof(TypeMedecin), sdr[6].ToString()),
                             Disponibilite = (Disponibilite)Enum.Parse(typeof(Disponibilite), sdr[8].ToString()),
                         };
-                        //medecin.Specialite= medecin.TypeMedecin==TypeMedecin.Specialiste?null:specialiteRepository.findById((int)sdr[7]);
                         medecins.Add(medecin);
                     }
                     sdr.Close();
@@ -69,7 +63,6 @@ namespace Clinique_221.Repository
                 {
                     cmd.Dispose();
 
-                    //5-Fermeture de la connexion
                     connexion.Close();
                 }
             }
@@ -86,7 +79,12 @@ namespace Clinique_221.Repository
             throw new NotImplementedException();
         }
 
-        public void save(Medecin obj)
+        public Medecin persist(Medecin obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Medecin remplirData(SqlDataReader sdr)
         {
             throw new NotImplementedException();
         }

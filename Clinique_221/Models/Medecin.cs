@@ -18,6 +18,11 @@ namespace Clinique_221.Models
         private List<Rdv> rdvs = new List<Rdv>();
         private List<Consultation> consultations = new List<Consultation>();
 
+        public Medecin()
+        {
+            Role = Role.Medecin;
+        }
+
         public TypeMedecin TypeMedecin { get => typeMedecin; set => typeMedecin = value; }
         public Specialite Specialite { get => specialite; set => specialite = value; }
         public Disponibilite Disponibilite { get => disponibilite; set => disponibilite = value; }

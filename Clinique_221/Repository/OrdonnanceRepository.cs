@@ -9,34 +9,38 @@ using System.Threading.Tasks;
 
 namespace Clinique_221.Repository
 {
-    public class SpecialiteRepository : BaseRepository, ISpecialiteRepository
+    public class OrdonnanceRepository : BaseRepository, IOrdonnanceRepository
     {
-        private readonly string SQL_SELECT_BY_ID = "SELECT * FROM specialite where id=@idSpecialite";
+        private readonly string SQL_SELECT_BY_ID = "SELECT * FROM ordonnance where id=@idOrdonnance";
+        
+        private IOrdonnanceMedicamentRepository ordonnanceMedicamentRepo;
+        private IConstanteRepository constanteRepo;
 
-        public SpecialiteRepository(string chaineDeConnexion)
+        public OrdonnanceRepository(string chaineDeConnexion, IOrdonnanceMedicamentRepository ordonnanceMedicamentRepo, IConstanteRepository constanteRepo)
         {
             ChaineDeConnexion = chaineDeConnexion;
+            this.ordonnanceMedicamentRepo = ordonnanceMedicamentRepo;
+            this.constanteRepo = constanteRepo;
         }
 
-        public void delete(Specialite obj)
+        public void delete(Ordonnance obj)
         {
             throw new NotImplementedException();
         }
 
-        public List<Specialite> findAll()
+        public List<Ordonnance> findAll()
         {
             throw new NotImplementedException();
         }
 
-        public List<Specialite> findAllByDate(DateTime date)
+        public List<Ordonnance> findAllByDate(DateTime date)
         {
             throw new NotImplementedException();
         }
 
-        public Specialite findById(int id)
+        public Ordonnance findById(int id)
         {
-            Specialite specialite=null;
-            //1-Ouvrir la connexion
+            Ordonnance ordonnance = null;
             using (var connexion = new SqlConnection(ChaineDeConnexion))
             using (var cmd = connexion.CreateCommand())
             {
@@ -44,22 +48,19 @@ namespace Clinique_221.Repository
                 {
                     connexion.Open();
                     cmd.Connection = connexion;
-                    //2-Preparer la requete
                     cmd.CommandText = SQL_SELECT_BY_ID;
-                    //Changer les parametres par leurs valeurs
-                    cmd.Parameters.Add("@idSpecialite", SqlDbType.Int).Value = id;
-                    //3-Executer la requete et recuperer les données
+                    cmd.Parameters.Add("@idOrdonnance", SqlDbType.Int).Value = id;
                     SqlDataReader sdr = cmd.ExecuteReader();
-                    //4-parcours de requete(select)=>Mapping relationnel vers Objet (de la base de données vers l'app)
                     if (sdr.Read())
                     {
-                        //Mapping relationnel vers Objet(de la base de données vers l'app)
-                        specialite = new Specialite()
+                        ordonnance = new Ordonnance()
                         {
                             Id = (int)sdr[0],
-                            Libelle = (string)sdr[1],
+                            DateOrdonnance = (DateTime)sdr[1],
                         };
                     }
+                    ordonnance.OrdonnanceMedicament = ordonnanceMedicamentRepo.findAllByOrdonnance(ordonnance);
+                    ordonnance.Constantes = constanteRepo.findAllByOrdonnance(ordonnance);
                     sdr.Close();
                 }
                 catch (Exception ex)
@@ -71,24 +72,23 @@ namespace Clinique_221.Repository
                 {
                     cmd.Dispose();
 
-                    //5-Fermeture de la connexion
                     connexion.Close();
                 }
             }
-            return specialite;
+            return ordonnance;
         }
 
-        public Specialite persist(Specialite obj)
+        public Ordonnance persist(Ordonnance obj)
         {
             throw new NotImplementedException();
         }
 
-        public Specialite remplirData(SqlDataReader sdr)
+        public Ordonnance remplirData(SqlDataReader sdr)
         {
             throw new NotImplementedException();
         }
 
-        public void update(Specialite obj)
+        public void update(Ordonnance obj)
         {
             throw new NotImplementedException();
         }

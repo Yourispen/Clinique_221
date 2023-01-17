@@ -113,7 +113,7 @@
             this.button3.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.button3.Size = new System.Drawing.Size(220, 60);
             this.button3.TabIndex = 5;
-            this.button3.Text = "       Rendez-vous";
+            this.button3.Text = "       Prestation";
             this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button3.UseVisualStyleBackColor = true;
             // 
@@ -131,7 +131,7 @@
             this.button2.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.button2.Size = new System.Drawing.Size(220, 60);
             this.button2.TabIndex = 4;
-            this.button2.Text = "       Rendez-vous";
+            this.button2.Text = "       Consultation";
             this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button2.UseVisualStyleBackColor = true;
             // 
@@ -149,7 +149,7 @@
             this.button1.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.button1.Size = new System.Drawing.Size(220, 60);
             this.button1.TabIndex = 3;
-            this.button1.Text = "       Consultation";
+            this.button1.Text = "       Patient";
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);

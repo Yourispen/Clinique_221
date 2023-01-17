@@ -53,7 +53,7 @@ namespace Clinique_221.Presenter
 
         private void selectionRdvHandle(object sender, EventArgs e)
         {
-            rdvSelect=bindingRdvListe.Current as Rdv;
+            //rdvSelect=bindingRdvListe.Current as Rdv;
         }
 
         private void validerRdvHandle(object sender, EventArgs e)

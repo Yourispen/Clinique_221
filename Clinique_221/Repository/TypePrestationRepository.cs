@@ -77,7 +77,12 @@ namespace Clinique_221.Repository
             throw new NotImplementedException();
         }
 
-        public void save(TypePrestation obj)
+        public TypePrestation persist(TypePrestation obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TypePrestation remplirData(SqlDataReader sdr)
         {
             throw new NotImplementedException();
         }

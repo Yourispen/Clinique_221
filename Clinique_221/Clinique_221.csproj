@@ -266,7 +266,7 @@
   <ItemGroup>
     <Compile Include="Core\Fabrique.cs" />
     <Compile Include="Models\Admin.cs" />
-    <Compile Include="Models\AntecedantMedical.cs" />
+    <Compile Include="Models\AntecedentMedical.cs" />
     <Compile Include="Models\Constante.cs" />
     <Compile Include="Models\Consultation.cs" />
     <Compile Include="Models\Disponibilite.cs" />
@@ -275,6 +275,7 @@
     <Compile Include="Models\Medecin.cs" />
     <Compile Include="Models\Medicament.cs" />
     <Compile Include="Models\Ordonnance.cs" />
+    <Compile Include="Models\OrdonnanceMedicament.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\Posologie.cs" />
     <Compile Include="Models\Prestation.cs" />
@@ -290,13 +291,29 @@
     <Compile Include="Presenter\RdvPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AntecedentMedicalRepository.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\ConstanteRepository.cs" />
+    <Compile Include="Repository\ConsultationRepository.cs" />
+    <Compile Include="Repository\IAntecedentMedicalRepository.cs" />
+    <Compile Include="Repository\IConstanteRepository.cs" />
+    <Compile Include="Repository\IConsultationRepository.cs" />
+    <Compile Include="Repository\IMedicamentRepository.cs" />
+    <Compile Include="Repository\IOrdonnanceMedicamentRepository.cs" />
+    <Compile Include="Repository\IOrdonnanceRepository.cs" />
+    <Compile Include="Repository\IPrestationRepository.cs" />
+    <Compile Include="Repository\MedicamentRepository.cs" />
+    <Compile Include="Repository\OrdonnanceMedicamentRepository.cs" />
+    <Compile Include="Repository\OrdonnanceRepository.cs" />
+    <Compile Include="Repository\PatientRepository.cs" />
+    <Compile Include="Repository\IPatientRepository.cs" />
     <Compile Include="Repository\IMedecinRepository.cs" />
     <Compile Include="Repository\ITypePrestationRepository.cs" />
     <Compile Include="Repository\IRdvRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\ISpecialiteRepository.cs" />
     <Compile Include="Repository\MedecinRepository.cs" />
+    <Compile Include="Repository\PrestationRepository.cs" />
     <Compile Include="Repository\TypePrestationRepository.cs" />
     <Compile Include="Repository\RdvRepository.cs" />
     <Compile Include="Repository\SpecialiteRepository.cs" />

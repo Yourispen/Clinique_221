@@ -19,7 +19,7 @@ namespace Clinique_221.Views
         public CheckBox ChboxMasculin { get => chboxMasculin; }
         public CheckBox ChboxFeminin { get => chboxFeminin;}
         public DateTime DtpDateNaissance { get => dtpDateNaissance.Value; set => dtpDateNaissance.Value = value; }
-        public string TxtNomParent { get => txtNomComplet.Text.Trim(); set => txtNomComplet.Text = value; }
+        public string TxtNomParent { get => txtNomParent.Text.Trim(); set => txtNomParent.Text = value; }
         public CheckBox ChboxConsultation { get => chboxConsultation;}
         public CheckBox ChboxPrestation { get => chboxPrestation;}
         public DateTime DtpDateRdv { get => dtpDateRdv.Value; set => dtpDateRdv.Value = value; }
@@ -42,6 +42,8 @@ namespace Clinique_221.Views
 
         public CheckBox ChboxAncienPatient => chboxAncienPatient;
 
+        public CheckedListBox ChlboxListeDesAntecedentsMedicaux => chlboxAntecedentMedical;
+
         public AjoutRdvForm()
         {
             InitializeComponent();
@@ -58,11 +60,20 @@ namespace Clinique_221.Views
         public event EventHandler eventChoixSexeMasculinPatient;
         public event EventHandler eventChoixTypeConsultation;
         public event EventHandler eventChoixTypePrestation;
+        public event EventHandler eventChoixDateRdv;
 
         void activeEvent()
         {
             chboxNouveauPatient.CheckedChanged+= delegate { eventNouveauPatient.Invoke(this, EventArgs.Empty); };
             chboxAncienPatient.CheckedChanged += delegate { eventAncienPatient.Invoke(this, EventArgs.Empty); };
+            chboxPrestation.CheckedChanged += delegate { eventChoixTypePrestation.Invoke(this, EventArgs.Empty); };
+            chboxConsultation.CheckedChanged += delegate { eventChoixTypeConsultation.Invoke(this, EventArgs.Empty); };
+            chboxFeminin.CheckedChanged += delegate { eventChoixSexeFemininPatient.Invoke(this, EventArgs.Empty); };
+            chboxMasculin.CheckedChanged += delegate { eventChoixSexeMasculinPatient.Invoke(this, EventArgs.Empty); };
+            dtpDateRdv.ValueChanged += delegate { eventChoixDateRdv.Invoke(this, EventArgs.Empty); };
+            btnRecherchePatient.Click += delegate { eventRecherchePatientParCode.Invoke(this, EventArgs.Empty); };
+            btnAjouterDemandeRdv.Click += delegate { eventAjouterDemandeRdv.Invoke(this, EventArgs.Empty); };
+            btnAnnulerDemandeRdv.Click += delegate { eventAnnulerDemandeRdv.Invoke(this, EventArgs.Empty); };
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -130,14 +141,19 @@ namespace Clinique_221.Views
             chlboxListeDesPrestations.DataSource = prestationList;
         }
 
-        public void setAntecedentMedicalBindingSource(BindingSource antecedentMedicalList)
+        public void setListeAntecedentMedicalBindingSource(BindingSource antecedentMedicalList)
         {
-            throw new NotImplementedException();
+            chlboxAntecedentMedical.DataSource = antecedentMedicalList;
         }
 
         public void setListeDesMedecinBindingSource(BindingSource typePrestationList)
         {
             cboxListeDesMedecin.DataSource = typePrestationList;
+        }
+
+        private void chlboxListeDesPrestations_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

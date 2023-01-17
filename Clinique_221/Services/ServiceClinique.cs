@@ -14,20 +14,59 @@ namespace Clinique_221.Services
         private IRdvRepository rdvRepo;
         private IMedecinRepository medecinRepo;
         private ITypePrestationRepository typePrestationRepo;
-        private ISpecialiteRepository SpecialiteRepo;
+        private ISpecialiteRepository specialiteRepo;
+        private IPatientRepository patientRepo;
+        private IAntecedentMedicalRepository antecedentMedicalRepo;
+        private IMedicamentRepository medicamentRepo;
+        private IOrdonnanceMedicamentRepository ordonnanceMedicamentRepo;
+        IConstanteRepository constanteRepo;
+        private IOrdonnanceRepository ordonnanceRepo;
+        IConsultationRepository consultationRepo;
 
         //Injection de dépendances
-        public ServiceClinique(IRdvRepository rdvRepo, IMedecinRepository medecinRepo, ITypePrestationRepository typePrestationRepo, ISpecialiteRepository specialiteRepo)
+        public ServiceClinique(IRdvRepository rdvRepo, IMedecinRepository medecinRepo, ITypePrestationRepository typePrestationRepo, ISpecialiteRepository specialiteRepo, IPatientRepository patientRepo, IAntecedentMedicalRepository antecedentMedicalRepo, IMedicamentRepository medicamentRepo, IOrdonnanceMedicamentRepository ordonnanceMedicamentRepo, IConstanteRepository constanteRepo, IOrdonnanceRepository ordonnanceRepo, IConsultationRepository consultationRepo)
         {
             this.rdvRepo = rdvRepo;
             this.medecinRepo = medecinRepo;
             this.typePrestationRepo = typePrestationRepo;
-            SpecialiteRepo = specialiteRepo;
+            this.specialiteRepo = specialiteRepo;
+            this.patientRepo = patientRepo;
+            this.antecedentMedicalRepo = antecedentMedicalRepo;
+            this.medicamentRepo = medicamentRepo;
+            this.ordonnanceMedicamentRepo = ordonnanceMedicamentRepo;
+            this.constanteRepo = constanteRepo;
+            this.ordonnanceRepo = ordonnanceRepo;
+            this.consultationRepo = consultationRepo;
         }
 
-        public void ajouterRdv(Rdv rdv)
+        public AntecedentMedical ajouterAntecedentMedical(AntecedentMedical antecedentMedical)
         {
-            this.rdvRepo.save(rdv);
+            return antecedentMedicalRepo.persist(antecedentMedical);
+        }
+
+        public void ajouterAntecedentMedicalUnPatient(Patient patient, List<AntecedentMedical> antecedentMedicaux)
+        {
+           antecedentMedicalRepo.persistByPatient(patient,antecedentMedicaux);
+        }
+
+        public Patient ajouterPatient(Patient patient)
+        {
+            return patientRepo.persist(patient);
+        }
+
+        public Rdv ajouterRdv(Rdv rdv)
+        {
+            return rdvRepo.persist(rdv);
+        }
+
+        public List<AntecedentMedical> listerAntecedentMedical()
+        {
+            return antecedentMedicalRepo.findAll();
+        }
+
+        public List<AntecedentMedical> listerAntecedentMedical(int idPatient)
+        {
+            return antecedentMedicalRepo.findAllByPatient(idPatient);
         }
 
         public List<Medecin> listerMedecin()
@@ -63,6 +102,11 @@ namespace Clinique_221.Services
         public List<TypePrestation> listerTypePrestation(string codePatient)
         {
             throw new NotImplementedException();
+        }
+
+        public Patient rechercherPatient(string code)
+        {
+            return patientRepo.findByCode(code);
         }
     }
 }

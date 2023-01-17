@@ -32,7 +32,7 @@ namespace Clinique_221.Views
                     eventRecherchePatient.Invoke(this, EventArgs.Empty);
                 }
             };
-            dtgvListeRdv.SelectionChanged += delegate { eventSelectionLigneDtgv.Invoke(this, EventArgs.Empty); };
+            //dtgvListeRdv.SelectionChanged += delegate { eventSelectionLigneDtgv.Invoke(this, EventArgs.Empty); };
 
         }
 

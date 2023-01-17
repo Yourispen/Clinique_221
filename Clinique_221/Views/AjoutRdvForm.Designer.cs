@@ -43,9 +43,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dtpDateNaissance = new System.Windows.Forms.DateTimePicker();
             this.gboxPatient = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.pnlRechercherPatient = new System.Windows.Forms.Panel();
             this.btnRecherchePatient = new System.Windows.Forms.Button();
             this.txtCode = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.chboxAncienPatient = new System.Windows.Forms.CheckBox();
+            this.chboxNouveauPatient = new System.Windows.Forms.CheckBox();
             this.gboxRdv = new System.Windows.Forms.GroupBox();
             this.pnlAjoutRdv = new System.Windows.Forms.Panel();
             this.chlboxListeDesPrestations = new System.Windows.Forms.CheckedListBox();
@@ -62,18 +65,15 @@
             this.btnAnnulerDemandeRdv = new System.Windows.Forms.Button();
             this.pnlTitreBar = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.chboxNouveauPatient = new System.Windows.Forms.CheckBox();
-            this.chboxAncienPatient = new System.Windows.Forms.CheckBox();
-            this.pnlRechercherPatient = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.pnlAjoutPatient.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gboxPatient.SuspendLayout();
+            this.pnlRechercherPatient.SuspendLayout();
             this.gboxRdv.SuspendLayout();
             this.pnlAjoutRdv.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.pnlTitreBar.SuspendLayout();
-            this.pnlRechercherPatient.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -111,10 +111,6 @@
             // 
             this.chlboxAntecedentMedical.CheckOnClick = true;
             this.chlboxAntecedentMedical.FormattingEnabled = true;
-            this.chlboxAntecedentMedical.Items.AddRange(new object[] {
-            "Diabète",
-            "Hypertension",
-            "Hépatite"});
             this.chlboxAntecedentMedical.Location = new System.Drawing.Point(23, 244);
             this.chlboxAntecedentMedical.Name = "chlboxAntecedentMedical";
             this.chlboxAntecedentMedical.Size = new System.Drawing.Size(320, 49);
@@ -244,16 +240,15 @@
             this.gboxPatient.TabStop = false;
             this.gboxPatient.Text = "Patient";
             // 
-            // label2
+            // pnlRechercherPatient
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(132, 21);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Code du Patient";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.pnlRechercherPatient.Controls.Add(this.btnRecherchePatient);
+            this.pnlRechercherPatient.Controls.Add(this.txtCode);
+            this.pnlRechercherPatient.Controls.Add(this.label2);
+            this.pnlRechercherPatient.Location = new System.Drawing.Point(6, 50);
+            this.pnlRechercherPatient.Name = "pnlRechercherPatient";
+            this.pnlRechercherPatient.Size = new System.Drawing.Size(361, 81);
+            this.pnlRechercherPatient.TabIndex = 16;
             // 
             // btnRecherchePatient
             // 
@@ -275,6 +270,40 @@
             this.txtCode.Name = "txtCode";
             this.txtCode.Size = new System.Drawing.Size(250, 29);
             this.txtCode.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(12, 4);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(132, 21);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Code du Patient";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // chboxAncienPatient
+            // 
+            this.chboxAncienPatient.AutoSize = true;
+            this.chboxAncienPatient.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chboxAncienPatient.Location = new System.Drawing.Point(236, 19);
+            this.chboxAncienPatient.Name = "chboxAncienPatient";
+            this.chboxAncienPatient.Size = new System.Drawing.Size(82, 25);
+            this.chboxAncienPatient.TabIndex = 7;
+            this.chboxAncienPatient.Text = "Ancien";
+            this.chboxAncienPatient.UseVisualStyleBackColor = true;
+            // 
+            // chboxNouveauPatient
+            // 
+            this.chboxNouveauPatient.AutoSize = true;
+            this.chboxNouveauPatient.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chboxNouveauPatient.Location = new System.Drawing.Point(90, 19);
+            this.chboxNouveauPatient.Name = "chboxNouveauPatient";
+            this.chboxNouveauPatient.Size = new System.Drawing.Size(99, 25);
+            this.chboxNouveauPatient.TabIndex = 6;
+            this.chboxNouveauPatient.Text = "Nouveau";
+            this.chboxNouveauPatient.UseVisualStyleBackColor = true;
+            this.chboxNouveauPatient.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // gboxRdv
             // 
@@ -309,10 +338,11 @@
             this.chlboxListeDesPrestations.CheckOnClick = true;
             this.chlboxListeDesPrestations.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chlboxListeDesPrestations.FormattingEnabled = true;
-            this.chlboxListeDesPrestations.Location = new System.Drawing.Point(26, 215);
+            this.chlboxListeDesPrestations.Location = new System.Drawing.Point(22, 209);
             this.chlboxListeDesPrestations.Name = "chlboxListeDesPrestations";
             this.chlboxListeDesPrestations.Size = new System.Drawing.Size(356, 72);
             this.chlboxListeDesPrestations.TabIndex = 18;
+            this.chlboxListeDesPrestations.SelectedIndexChanged += new System.EventHandler(this.chlboxListeDesPrestations_SelectedIndexChanged);
             // 
             // groupBox2
             // 
@@ -362,7 +392,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(22, 116);
+            this.label9.Location = new System.Drawing.Point(18, 116);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(168, 21);
             this.label9.TabIndex = 17;
@@ -381,7 +411,7 @@
             // 
             this.lblListePrestation.AutoSize = true;
             this.lblListePrestation.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblListePrestation.Location = new System.Drawing.Point(22, 191);
+            this.lblListePrestation.Location = new System.Drawing.Point(18, 187);
             this.lblListePrestation.Name = "lblListePrestation";
             this.lblListePrestation.Size = new System.Drawing.Size(164, 21);
             this.lblListePrestation.TabIndex = 17;
@@ -390,7 +420,7 @@
             // cboxListeDesMedecin
             // 
             this.cboxListeDesMedecin.FormattingEnabled = true;
-            this.cboxListeDesMedecin.Location = new System.Drawing.Point(26, 233);
+            this.cboxListeDesMedecin.Location = new System.Drawing.Point(22, 233);
             this.cboxListeDesMedecin.Name = "cboxListeDesMedecin";
             this.cboxListeDesMedecin.Size = new System.Drawing.Size(356, 32);
             this.cboxListeDesMedecin.TabIndex = 18;
@@ -456,47 +486,16 @@
             this.label1.Text = "Créer un Rendez-vous";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // chboxNouveauPatient
-            // 
-            this.chboxNouveauPatient.AutoSize = true;
-            this.chboxNouveauPatient.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chboxNouveauPatient.Location = new System.Drawing.Point(90, 19);
-            this.chboxNouveauPatient.Name = "chboxNouveauPatient";
-            this.chboxNouveauPatient.Size = new System.Drawing.Size(99, 25);
-            this.chboxNouveauPatient.TabIndex = 6;
-            this.chboxNouveauPatient.Text = "Nouveau";
-            this.chboxNouveauPatient.UseVisualStyleBackColor = true;
-            this.chboxNouveauPatient.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
-            // 
-            // chboxAncienPatient
-            // 
-            this.chboxAncienPatient.AutoSize = true;
-            this.chboxAncienPatient.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chboxAncienPatient.Location = new System.Drawing.Point(236, 19);
-            this.chboxAncienPatient.Name = "chboxAncienPatient";
-            this.chboxAncienPatient.Size = new System.Drawing.Size(82, 25);
-            this.chboxAncienPatient.TabIndex = 7;
-            this.chboxAncienPatient.Text = "Ancien";
-            this.chboxAncienPatient.UseVisualStyleBackColor = true;
-            // 
-            // pnlRechercherPatient
-            // 
-            this.pnlRechercherPatient.Controls.Add(this.btnRecherchePatient);
-            this.pnlRechercherPatient.Controls.Add(this.txtCode);
-            this.pnlRechercherPatient.Controls.Add(this.label2);
-            this.pnlRechercherPatient.Location = new System.Drawing.Point(6, 50);
-            this.pnlRechercherPatient.Name = "pnlRechercherPatient";
-            this.pnlRechercherPatient.Size = new System.Drawing.Size(361, 81);
-            this.pnlRechercherPatient.TabIndex = 16;
-            // 
             // AjoutRdvForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(824, 569);
+            this.ControlBox = false;
             this.Controls.Add(this.pnlTitreBar);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AjoutRdvForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AjoutRdvForm";
@@ -508,6 +507,8 @@
             this.groupBox1.PerformLayout();
             this.gboxPatient.ResumeLayout(false);
             this.gboxPatient.PerformLayout();
+            this.pnlRechercherPatient.ResumeLayout(false);
+            this.pnlRechercherPatient.PerformLayout();
             this.gboxRdv.ResumeLayout(false);
             this.pnlAjoutRdv.ResumeLayout(false);
             this.pnlAjoutRdv.PerformLayout();
@@ -515,8 +516,6 @@
             this.groupBox2.PerformLayout();
             this.pnlTitreBar.ResumeLayout(false);
             this.pnlTitreBar.PerformLayout();
-            this.pnlRechercherPatient.ResumeLayout(false);
-            this.pnlRechercherPatient.PerformLayout();
             this.ResumeLayout(false);
 
         }

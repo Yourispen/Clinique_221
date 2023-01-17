@@ -8,5 +8,9 @@ namespace Clinique_221.Models
 {
     public class Admin : Utilisateur
     {
+        public Admin()
+        {
+            Role = Role.Admin;
+        }
     }
 }

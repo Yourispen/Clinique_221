@@ -18,11 +18,18 @@ namespace Clinique_221.Repository
         private readonly string SQL_SELECT_ALL_BY_ID_PATIENT = "SELECT * FROM rdv where patient_id=@idPatient";
         private readonly string SQL_SELECT_ALL_BY_CODE_PATIENT = @"SELECT * FROM rdv,utilisateur where utilisateur.code like '%'+@codePatient+'%' and rdv.patient_id=utilisateur.id";
         private readonly string SQL_INSERT = "INSERT INTO rdv(date_rdv,type_rdv,etat,patient_id,medecin_id,rp_id) values(@dateRdv,@typeRdv,@etatRdv,@idPatient,@idMedecin,@idRp)";
+        private readonly string SQL_UPDATE = "UPDATE rdv SET date_rdv=@dateRdv, type_rdv=@typeRdv, etat=@etatRdv, patient_id=@idPatient, medecin_id=@idMedecin WHERE id=@idRdv";
 
-        public RdvRepository(string chaineDeConnexion)
+        IMedecinRepository medecinRepo;
+        IConsultationRepository consultationRepo;
+        IPrestationRepository prestationRepo;
+        public RdvRepository(string chaineDeConnexion, IMedecinRepository medecinRepo, IConsultationRepository consultationRepo, IPrestationRepository prestationRepo)
         {
             //Data Source = ROLYSPEN; Initial Catalog = CLINIQUE_221; Integrated Security = True
             ChaineDeConnexion = chaineDeConnexion;
+            this.medecinRepo = medecinRepo;
+            this.consultationRepo = consultationRepo;
+            this.prestationRepo = prestationRepo;
         }
 
         public void delete(Rdv obj)
@@ -50,14 +57,7 @@ namespace Clinique_221.Repository
                     while (sdr.Read())
                     {
                         //Mapping relationnel vers Objet(de la base de données vers l'app)
-                        Rdv rdv = new Rdv()
-                        {
-                            Id = (int)sdr[0],
-                            DateRdv = (DateTime)sdr[1],
-                            TypeRdv = (TypeRdv)Enum.Parse(typeof(TypeRdv), sdr[2].ToString()),
-                            EtatRdv = (Etat)Enum.Parse(typeof(Etat), sdr[3].ToString())
-                            //Patient = (int)sdr[3],
-                        };
+                        Rdv rdv = remplirData(sdr);
                         rdvs.Add(rdv);
                     }
                     sdr.Close();
@@ -70,19 +70,10 @@ namespace Clinique_221.Repository
                 finally
                 {
                     cmd.Dispose();
-
                     //5-Fermeture de la connexion
                     connexion.Close();
                 }
             }
-
-            /*List<Rdv> rdvs = new List<Rdv>();
-            {
-                new Rdv(){Id=1,Patient=new Patient(){NomComplet="Pat1"},DateRdv= DateTime.Now.Date,TypeRdv=TypeRdv.Consultation,Medecin=new Medecin(){NomComplet="Med1"},EtatRdv=Etat.EnCours},
-                new Rdv(){Id=2,Patient=new Patient(){NomComplet="Pat2"},DateRdv= DateTime.Now.Date,TypeRdv=TypeRdv.Consultation,Medecin=new Medecin(){NomComplet="Med1"},EtatRdv=Etat.EnCours},
-                new Rdv(){Id=3,Patient=new Patient(){NomComplet="Pat3"},DateRdv= DateTime.Now.Date,TypeRdv=TypeRdv.Consultation,Medecin=new Medecin(){NomComplet="Med2"},EtatRdv=Etat.EnCours},
-                new Rdv(){Id=4,Patient=new Patient(){NomComplet="Pat4"},DateRdv= DateTime.Now.Date,TypeRdv=TypeRdv.Consultation,Medecin=new Medecin(){NomComplet="Med2"},EtatRdv=Etat.Annule}
-            };*/
             return rdvs;
         }
 
@@ -118,14 +109,7 @@ namespace Clinique_221.Repository
                     while (sdr.Read())
                     {
                         //Mapping relationnel vers Objet(de la base de données vers l'app)
-                        Rdv rdv = new Rdv()
-                        {
-                            Id = (int)sdr[0],
-                            DateRdv = (DateTime)sdr[1],
-                            TypeRdv = (TypeRdv)Enum.Parse(typeof(TypeRdv), sdr[2].ToString()),
-                            EtatRdv = (Etat)Enum.Parse(typeof(Etat), sdr[3].ToString())
-                            //Patient = (int)sdr[3],
-                        };
+                        Rdv rdv = remplirData(sdr);
                         rdvs.Add(rdv);
                     }
                     sdr.Close();
@@ -168,14 +152,7 @@ namespace Clinique_221.Repository
                     while (sdr.Read())
                     {
                         //Mapping relationnel vers Objet(de la base de données vers l'app)
-                        Rdv rdv = new Rdv()
-                        {
-                            Id = (int)sdr[0],
-                            DateRdv = (DateTime)sdr[1],
-                            TypeRdv = (TypeRdv)Enum.Parse(typeof(TypeRdv), sdr[2].ToString()),
-                            EtatRdv = (Etat)Enum.Parse(typeof(Etat), sdr[3].ToString())
-                            //Patient = (int)sdr[3],
-                        };
+                        Rdv rdv = remplirData(sdr);
                         rdvs.Add(rdv);
                     }
                     sdr.Close();
@@ -208,7 +185,7 @@ namespace Clinique_221.Repository
             return null;
         }
 
-        public void save(Rdv obj)
+        public Rdv persist(Rdv obj)
         {
             //1-Ouvrir la connexion
             using (var connexion = new SqlConnection(ChaineDeConnexion))
@@ -219,7 +196,16 @@ namespace Clinique_221.Repository
                     connexion.Open();
                     cmd.Connection = connexion;
                     //2-Preparer la requete
-                    cmd.CommandText = SQL_INSERT;
+                    if (obj.Id != 0)
+                    {
+                        cmd.CommandText = SQL_UPDATE;
+                        cmd.Parameters.Add("@idRdv", SqlDbType.Int).Value = obj.Id;
+                    }
+                    else
+                    {
+                        cmd.CommandText = SQL_INSERT;
+                    }
+                    
                     //Changer les parametres par leurs valeurs
                     cmd.Parameters.Add("@dateRdv", SqlDbType.Date).Value = obj.DateRdv;
                     cmd.Parameters.Add("@typeRdv", SqlDbType.VarChar).Value = obj.TypeRdv.ToString();
@@ -243,12 +229,34 @@ namespace Clinique_221.Repository
                     connexion.Close();
                 }
             }
+            return obj;
+        }
+
+        public Rdv remplirData(SqlDataReader sdr)
+        {
+            Rdv rdv = new Rdv()
+            {
+                Id = (int)sdr[0],
+                DateRdv = (DateTime)sdr[1],
+                TypeRdv = (TypeRdv)Enum.Parse(typeof(TypeRdv), sdr[2].ToString()),
+                EtatRdv = (Etat)Enum.Parse(typeof(Etat), sdr[3].ToString())
+            };
+            int idConsultation = (int)sdr[4];
+            int idMedecin = (int)sdr[5];
+            int idPrestation = (int)sdr[7];
+            rdv.Medecin = medecinRepo.findById(idMedecin);
+            rdv.Consultation = consultationRepo.findById(idConsultation);
+            rdv.Prestation = prestationRepo.findById(idPrestation);
+
+            return rdv;
         }
 
         public void update(Rdv obj)
         {
             
         }
+
+        
        
     }
 }
