@@ -81,7 +81,7 @@ namespace Clinique_221.Presenter
                 DateNaissance = ajoutRdvView.DtpDateNaissance,
                 NomParent = ajoutRdvView.TxtNomParent,
                 TypePatient = (TypePatient)Enum.Parse(typeof(TypePatient), "Adulte"),
-                Code="PAT00003"
+                Code="PAT00004"
             };
             foreach (var antMed in ajoutRdvView.ChlboxListeDesAntecedentsMedicaux.CheckedItems)
             {
@@ -98,14 +98,21 @@ namespace Clinique_221.Presenter
             if (ajoutRdvView.ChboxConsultation.Checked)
             {
                 rdv.Medecin = bindingMedecinListe.Current as Medecin;
+                Consultation consultation = Fabrique.getService().ajouterConsultation(new Consultation() { DateConsultation = ajoutRdvView.DtpDateRdv, EtatConsultation = Etat.EnAttente });
+                rdv.Consultation=consultation;
             }
             else
             {
+                Prestation prestation =Fabrique.getService().ajouterPrestation(new Prestation() { DatePrestation = ajoutRdvView.DtpDateRdv, EtatPrestation = Etat.EnAttente });
                 foreach (var typePrestation in ajoutRdvView.ChlboxListeDesPrestations.CheckedItems)
                 {
-                    ///patient.
+                    prestation.TypePrestations.Add(typePrestation as TypePrestation);
                 }
+                Fabrique.getService().ajouterPrestationTypePrestation(prestation);
+                rdv.Prestation=prestation;
+                rdv.Rp=new Rp() { Id=38,Email="rp@gmail.com",Password="ism123",NomComplet="Responsable des prestations",Disponibilite=Disponibilite.Disponible};
             }
+            rdv=Fabrique.getService().ajouterRdv(rdv);
             viderInfoPatient();
 
         }

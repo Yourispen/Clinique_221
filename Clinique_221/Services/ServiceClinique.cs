@@ -19,12 +19,13 @@ namespace Clinique_221.Services
         private IAntecedentMedicalRepository antecedentMedicalRepo;
         private IMedicamentRepository medicamentRepo;
         private IOrdonnanceMedicamentRepository ordonnanceMedicamentRepo;
-        IConstanteRepository constanteRepo;
+        private IConstanteRepository constanteRepo;
         private IOrdonnanceRepository ordonnanceRepo;
-        IConsultationRepository consultationRepo;
+        private IConsultationRepository consultationRepo;
+        private IPrestationRepository prestationRepo;
 
         //Injection de dépendances
-        public ServiceClinique(IRdvRepository rdvRepo, IMedecinRepository medecinRepo, ITypePrestationRepository typePrestationRepo, ISpecialiteRepository specialiteRepo, IPatientRepository patientRepo, IAntecedentMedicalRepository antecedentMedicalRepo, IMedicamentRepository medicamentRepo, IOrdonnanceMedicamentRepository ordonnanceMedicamentRepo, IConstanteRepository constanteRepo, IOrdonnanceRepository ordonnanceRepo, IConsultationRepository consultationRepo)
+        public ServiceClinique(IRdvRepository rdvRepo, IMedecinRepository medecinRepo, ITypePrestationRepository typePrestationRepo, ISpecialiteRepository specialiteRepo, IPatientRepository patientRepo, IAntecedentMedicalRepository antecedentMedicalRepo, IMedicamentRepository medicamentRepo, IOrdonnanceMedicamentRepository ordonnanceMedicamentRepo, IConstanteRepository constanteRepo, IOrdonnanceRepository ordonnanceRepo, IConsultationRepository consultationRepo, IPrestationRepository prestationRepo)
         {
             this.rdvRepo = rdvRepo;
             this.medecinRepo = medecinRepo;
@@ -37,6 +38,7 @@ namespace Clinique_221.Services
             this.constanteRepo = constanteRepo;
             this.ordonnanceRepo = ordonnanceRepo;
             this.consultationRepo = consultationRepo;
+            this.prestationRepo = prestationRepo;
         }
 
         public AntecedentMedical ajouterAntecedentMedical(AntecedentMedical antecedentMedical)
@@ -49,9 +51,27 @@ namespace Clinique_221.Services
            antecedentMedicalRepo.persistByPatient(patient,antecedentMedicaux);
         }
 
+        public Consultation ajouterConsultation(Consultation consultation)
+        {
+            return consultationRepo.persist(consultation);
+        }
+
         public Patient ajouterPatient(Patient patient)
         {
             return patientRepo.persist(patient);
+        }
+
+        public Prestation ajouterPrestation(Prestation prestation)
+        {
+            return prestationRepo.persist(prestation);
+        }
+
+        public void ajouterPrestationTypePrestation(Prestation prestation)
+        {
+            foreach (var typePrestation in prestation.TypePrestations)
+            {
+                prestationRepo.insertPrestationTypePrestation(prestation, typePrestation);
+            }
         }
 
         public Rdv ajouterRdv(Rdv rdv)

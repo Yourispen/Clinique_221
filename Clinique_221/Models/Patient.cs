@@ -32,9 +32,6 @@ namespace Clinique_221.Models
         public List<Rdv> Rdvs { get => rdvs; set => rdvs = value; }
         public TypePatient TypePatient { get => typePatient; set => typePatient = value; }
 
-        public override string ToString()
-        {
-            return NomComplet;
-        }
+        
     }
 }

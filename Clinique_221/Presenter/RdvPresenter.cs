@@ -68,15 +68,17 @@ namespace Clinique_221.Presenter
 
         private void rechercherPatientHandle(object sender, EventArgs e)
         {
+            bindingRdvListe.Clear();
             if (!string.IsNullOrWhiteSpace(rdvView.TxtRecherchePatient))
             {
-                rdvListe=Fabrique.getService().listerRdvParPatient(rdvView.TxtRecherchePatient);
+                rdvListe=Fabrique.getService().listerRdvParPatient(rdvView.TxtRecherchePatient);            
             }
             else
             {
                 rdvListe = Fabrique.getService().listerRdv();
             }
-            bindingRdvListe.DataSource = rdvListe;
+            if(rdvListe!=null)
+                bindingRdvListe.DataSource = rdvListe;
 
         }
 

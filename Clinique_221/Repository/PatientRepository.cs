@@ -87,7 +87,36 @@ namespace Clinique_221.Repository
 
         public Patient findById(int id)
         {
-            throw new NotImplementedException();
+            Patient patient = null;
+            using (var connexion = new SqlConnection(ChaineDeConnexion))
+            using (var cmd = connexion.CreateCommand())
+            {
+                try
+                {
+                    connexion.Open();
+                    cmd.Connection = connexion;
+                    cmd.CommandText = SQL_SELECT_BY_ID;
+                    cmd.Parameters.Add("@idPatient", SqlDbType.Int).Value = id;
+                    SqlDataReader sdr = cmd.ExecuteReader();
+                    if (sdr.Read())
+                    {
+                        patient = remplirData(sdr);
+                    }
+                    sdr.Close();
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                finally
+                {
+                    cmd.Dispose();
+
+                    connexion.Close();
+                }
+            }
+            return patient;
         }
 
         public Patient persist(Patient obj)
@@ -135,7 +164,20 @@ namespace Clinique_221.Repository
 
         public Patient remplirData(SqlDataReader sdr)
         {
-            throw new NotImplementedException();
+            Patient patient = new Patient()
+            {
+                Id = (int)sdr[0],
+                NomComplet = (string)sdr[3],
+                Role = (Role)Enum.Parse(typeof(Role), sdr[4].ToString()),
+                Sexe = (Sexe)Enum.Parse(typeof(Sexe), sdr[5].ToString()),
+                Code = (string)sdr[9],
+                DateNaissance = (DateTime)sdr[10],
+                TypePatient = (TypePatient)Enum.Parse(typeof(TypePatient), sdr[11].ToString()),
+            };
+            patient.NomParent = patient.TypePatient == TypePatient.Adulte ? null : (string)sdr[12];
+            patient.AntecedantMedicaux = antecedentMedicalRepo.findAllByPatient(patient.Id);
+
+            return patient;
         }
 
         public void update(Patient obj)

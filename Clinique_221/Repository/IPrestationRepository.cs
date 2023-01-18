@@ -9,5 +9,6 @@ namespace Clinique_221.Repository
 {
     public interface IPrestationRepository : IRepository<Prestation>
     {
+        void insertPrestationTypePrestation(Prestation prestation,TypePrestation typePrestation);
     }
 }

@@ -8,6 +8,6 @@ namespace Clinique_221.Models
 {
     public enum Etat
     {
-        Annule,Archive,EnCours,Valide
+        Annule,Archive,EnAttente,Valide
     }
 }

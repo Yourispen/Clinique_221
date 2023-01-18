@@ -14,22 +14,24 @@ namespace Clinique_221.Repository
 {
     public class RdvRepository :BaseRepository, IRdvRepository
     {
-        private readonly string SQL_SELECT_ALL = "SELECT * FROM rdv";
-        private readonly string SQL_SELECT_ALL_BY_ID_PATIENT = "SELECT * FROM rdv where patient_id=@idPatient";
+        private readonly string SQL_SELECT_ALL = @"SELECT * FROM rdv";
+        private readonly string SQL_SELECT_ALL_BY_ID_PATIENT = @"SELECT * FROM rdv where patient_id=@idPatient";
         private readonly string SQL_SELECT_ALL_BY_CODE_PATIENT = @"SELECT * FROM rdv,utilisateur where utilisateur.code like '%'+@codePatient+'%' and rdv.patient_id=utilisateur.id";
-        private readonly string SQL_INSERT = "INSERT INTO rdv(date_rdv,type_rdv,etat,patient_id,medecin_id,rp_id) values(@dateRdv,@typeRdv,@etatRdv,@idPatient,@idMedecin,@idRp)";
-        private readonly string SQL_UPDATE = "UPDATE rdv SET date_rdv=@dateRdv, type_rdv=@typeRdv, etat=@etatRdv, patient_id=@idPatient, medecin_id=@idMedecin WHERE id=@idRdv";
+        private readonly string SQL_INSERT = @"INSERT INTO rdv(date_rdv,type_rdv,etat,consultation_id,medecin_id,rp_id,prestation_id,patient_id) values(@dateRdv,@typeRdv,@etatRdv,@idConsultation,@idMedecin,@idRp,@idPrestation,@idPatient); SELECT SCOPE_IDENTITY()";
+        private readonly string SQL_UPDATE = @"UPDATE rdv SET date_rdv=@dateRdv,consultation_id=@idConsultation, type_rdv=@typeRdv, etat=@etatRdv, patient_id=@idPatient, medecin_id=@idMedecin WHERE id=@idRdv";
 
         IMedecinRepository medecinRepo;
         IConsultationRepository consultationRepo;
         IPrestationRepository prestationRepo;
-        public RdvRepository(string chaineDeConnexion, IMedecinRepository medecinRepo, IConsultationRepository consultationRepo, IPrestationRepository prestationRepo)
+        IPatientRepository patientRepo;
+        public RdvRepository(string chaineDeConnexion, IMedecinRepository medecinRepo, IConsultationRepository consultationRepo, IPrestationRepository prestationRepo, IPatientRepository patientRepo)
         {
             //Data Source = ROLYSPEN; Initial Catalog = CLINIQUE_221; Integrated Security = True
             ChaineDeConnexion = chaineDeConnexion;
             this.medecinRepo = medecinRepo;
             this.consultationRepo = consultationRepo;
             this.prestationRepo = prestationRepo;
+            this.patientRepo = patientRepo;
         }
 
         public void delete(Rdv obj)
@@ -210,11 +212,23 @@ namespace Clinique_221.Repository
                     cmd.Parameters.Add("@dateRdv", SqlDbType.Date).Value = obj.DateRdv;
                     cmd.Parameters.Add("@typeRdv", SqlDbType.VarChar).Value = obj.TypeRdv.ToString();
                     cmd.Parameters.Add("@etatRdv", SqlDbType.VarChar).Value = obj.EtatRdv.ToString();
-                    cmd.Parameters.Add("@idPatient", SqlDbType.VarChar).Value = obj.Patient.Id;
-                    cmd.Parameters.Add("@idMedecin", SqlDbType.VarChar).Value = obj.Medecin.Id;
-                    cmd.Parameters.Add("@idRp", SqlDbType.VarChar).Value = obj.Rp.Id;
+                    if (obj.Consultation != null)
+                    {
+                        cmd.Parameters.Add("@idConsultation", SqlDbType.Int).Value = obj.Consultation.Id;
+                        cmd.Parameters.Add("@idMedecin", SqlDbType.Int).Value = obj.Medecin.Id;
+                        cmd.Parameters.Add("@idPrestation", SqlDbType.Int).Value = DBNull.Value;
+                        cmd.Parameters.Add("@idRp", SqlDbType.Int).Value = DBNull.Value;
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add("@idConsultation", SqlDbType.Int).Value = DBNull.Value;
+                        cmd.Parameters.Add("@idMedecin", SqlDbType.Int).Value = DBNull.Value;
+                        cmd.Parameters.Add("@idPrestation", SqlDbType.Int).Value = obj.Prestation.Id;
+                        cmd.Parameters.Add("@idRp", SqlDbType.Int).Value = obj.Rp.Id;
+                    }
+                    cmd.Parameters.Add("@idPatient", SqlDbType.Int).Value = obj.Patient.Id;
                     //3-Executer la requete et recuperer les données
-                    cmd.ExecuteNonQuery();
+                    obj.Id = int.Parse(cmd.ExecuteScalar().ToString());
                 }
                 catch (Exception ex)
                 {
@@ -239,14 +253,22 @@ namespace Clinique_221.Repository
                 Id = (int)sdr[0],
                 DateRdv = (DateTime)sdr[1],
                 TypeRdv = (TypeRdv)Enum.Parse(typeof(TypeRdv), sdr[2].ToString()),
-                EtatRdv = (Etat)Enum.Parse(typeof(Etat), sdr[3].ToString())
+                EtatRdv = (Etat)Enum.Parse(typeof(Etat), sdr[3].ToString()),
+                Patient = patientRepo.findById((int)sdr[8])
             };
-            int idConsultation = (int)sdr[4];
-            int idMedecin = (int)sdr[5];
-            int idPrestation = (int)sdr[7];
-            rdv.Medecin = medecinRepo.findById(idMedecin);
-            rdv.Consultation = consultationRepo.findById(idConsultation);
-            rdv.Prestation = prestationRepo.findById(idPrestation);
+            if (rdv.TypeRdv == TypeRdv.Consultation)
+            {
+                rdv.Consultation = consultationRepo.findById((int)sdr[4]);
+                rdv.Consultation.Rdv = rdv;
+                rdv.Medecin = medecinRepo.findById((int)sdr[5]);
+                rdv.Medecin.Rdvs.Add(rdv);
+
+            }
+            else
+            {
+                rdv.Prestation = prestationRepo.findById((int)sdr[7]);
+                rdv.Prestation.Rdv = rdv;
+            }
 
             return rdv;
         }

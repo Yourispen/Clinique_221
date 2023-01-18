@@ -24,6 +24,10 @@ namespace Clinique_221.Models
         private Prestation prestation;
         private Consultation consultation;
 
+        public Rdv()
+        {
+            EtatRdv = Etat.EnAttente;
+        }
 
         public int Id { get => id; set => id = value; }
         public DateTime DateRdv { get => dateRdv; set => dateRdv = value; }

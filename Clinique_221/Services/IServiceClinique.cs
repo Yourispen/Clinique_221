@@ -23,6 +23,8 @@ namespace Clinique_221.Services
         List<AntecedentMedical> listerAntecedentMedical(int idPatient);
         AntecedentMedical ajouterAntecedentMedical(AntecedentMedical antecedentMedical);
         void ajouterAntecedentMedicalUnPatient(Patient patient,List<AntecedentMedical> antecedentMedicaux);
-
+        Consultation ajouterConsultation(Consultation consultation);
+        Prestation ajouterPrestation(Prestation prestation);
+        void ajouterPrestationTypePrestation(Prestation prestation);
     }
 }

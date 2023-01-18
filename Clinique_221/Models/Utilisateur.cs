@@ -33,5 +33,10 @@ namespace Clinique_221.Models
         public string NomComplet { get => nomComplet; set => nomComplet = value; }
         public Role Role { get => role; set => role = value; }
         public Sexe Sexe { get => sexe; set => sexe = value; }
+
+        public override string ToString()
+        {
+            return NomComplet;
+        }
     }
 }

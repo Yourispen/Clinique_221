@@ -9,5 +9,7 @@ namespace Clinique_221.Repository
 {
     public interface ITypePrestationRepository : IRepository<TypePrestation>
     {
+        List<TypePrestation> findAllByPrestation(Prestation prestation);
+        List<TypePrestation> findAllByConsultation(Consultation consultation);
     }
 }
