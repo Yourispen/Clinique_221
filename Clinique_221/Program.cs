@@ -21,12 +21,27 @@ namespace Clinique_221
             Application.SetCompatibleTextRenderingDefault(false);
 
             //Création des objets
-            IRdvView rdvView= new RdvForm();
+            /*IRdvView rdvView= new RdvForm();
             IRdvPresenter rdvPresenter = new RdvPresenter(rdvView, Fabrique.getService());
-            Application.Run(rdvView as RdvForm);
+            Application.Run(rdvView as RdvForm);*/
             /*IAjoutRdvView ajoutRdvView = new AjoutRdvForm();
             IAjoutRdvPresenter ajoutRdvPresenter = new AjoutRdvPresenter(ajoutRdvView, Fabrique.getService());
             Application.Run(ajoutRdvView as AjoutRdvForm);*/
+            /*IPatientView patientView = new PatientForm();
+            IPatientPresenter patientPresenter = new PatientPresenter(patientView, Fabrique.getService());
+            Application.Run(patientView as PatientForm);*/
+            /*IPrestationView prestationView = new PrestationForm();
+            IPrestationPresenter prestationPresenter = new PrestationPresenter(prestationView, Fabrique.getService());
+            Application.Run(prestationView as PrestationForm);*/
+            /*IConsultationView consultationView = new ConsultationForm();
+            IConsultationPresenter consultationPresenter = new ConsultationPresenter(consultationView, Fabrique.getService());
+            Application.Run(consultationView as ConsultationForm);*/
+            IConnexionView connexionView = new ConnexionForm();
+            IConnexionPresenter connexion = new ConnexionPresenter(connexionView, Fabrique.getService());
+            Application.Run(connexionView as ConnexionForm);
+            /*IAjoutPrestationView ajoutPrestationView = new AjoutPrestationForm();
+            IAjoutPrestationPresenter ajoutPrestationPresenter = new AjoutPrestationPresenter(ajoutPrestationView, Fabrique.getService());
+            Application.Run(ajoutPrestationView as AjoutPrestationForm);*/
         }
     }
 }

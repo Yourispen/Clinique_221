@@ -30,17 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeForm));
             this.pnlMenu = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnPrestation = new System.Windows.Forms.Button();
+            this.btnConsultation = new System.Windows.Forms.Button();
+            this.btnPatient = new System.Windows.Forms.Button();
             this.btnRdv = new System.Windows.Forms.Button();
             this.pnlLogo = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlTitreBar = new System.Windows.Forms.Panel();
+            this.btnDeconnexion = new System.Windows.Forms.Button();
+            this.lblCompte = new System.Windows.Forms.Label();
             this.lblTitrePage = new System.Windows.Forms.Label();
-            this.pnlContainer = new System.Windows.Forms.Panel();
             this.pnlMenu.SuspendLayout();
             this.pnlLogo.SuspendLayout();
             this.pnlTitreBar.SuspendLayout();
@@ -49,11 +48,9 @@
             // pnlMenu
             // 
             this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.pnlMenu.Controls.Add(this.button5);
-            this.pnlMenu.Controls.Add(this.button4);
-            this.pnlMenu.Controls.Add(this.button3);
-            this.pnlMenu.Controls.Add(this.button2);
-            this.pnlMenu.Controls.Add(this.button1);
+            this.pnlMenu.Controls.Add(this.btnPrestation);
+            this.pnlMenu.Controls.Add(this.btnConsultation);
+            this.pnlMenu.Controls.Add(this.btnPatient);
             this.pnlMenu.Controls.Add(this.btnRdv);
             this.pnlMenu.Controls.Add(this.pnlLogo);
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
@@ -62,97 +59,60 @@
             this.pnlMenu.Size = new System.Drawing.Size(220, 633);
             this.pnlMenu.TabIndex = 0;
             // 
-            // button5
+            // btnPrestation
             // 
-            this.button5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
-            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(0, 380);
-            this.button5.Name = "button5";
-            this.button5.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.button5.Size = new System.Drawing.Size(220, 60);
-            this.button5.TabIndex = 7;
-            this.button5.Text = "       Utilisateurs";
-            this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnPrestation.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPrestation.FlatAppearance.BorderSize = 0;
+            this.btnPrestation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrestation.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrestation.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnPrestation.Image = ((System.Drawing.Image)(resources.GetObject("btnPrestation.Image")));
+            this.btnPrestation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrestation.Location = new System.Drawing.Point(0, 260);
+            this.btnPrestation.Name = "btnPrestation";
+            this.btnPrestation.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnPrestation.Size = new System.Drawing.Size(220, 60);
+            this.btnPrestation.TabIndex = 5;
+            this.btnPrestation.Text = "       Prestations";
+            this.btnPrestation.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPrestation.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnConsultation
             // 
-            this.button4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(0, 320);
-            this.button4.Name = "button4";
-            this.button4.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.button4.Size = new System.Drawing.Size(220, 60);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "       Statistiques";
-            this.button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btnConsultation.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnConsultation.FlatAppearance.BorderSize = 0;
+            this.btnConsultation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConsultation.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsultation.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnConsultation.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultation.Image")));
+            this.btnConsultation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConsultation.Location = new System.Drawing.Point(0, 200);
+            this.btnConsultation.Name = "btnConsultation";
+            this.btnConsultation.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnConsultation.Size = new System.Drawing.Size(220, 60);
+            this.btnConsultation.TabIndex = 4;
+            this.btnConsultation.Text = "       Consultations";
+            this.btnConsultation.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnConsultation.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnPatient
             // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(0, 260);
-            this.button3.Name = "button3";
-            this.button3.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.button3.Size = new System.Drawing.Size(220, 60);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "       Prestations";
-            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(0, 200);
-            this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.button2.Size = new System.Drawing.Size(220, 60);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "       Consultations";
-            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(0, 140);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.button1.Size = new System.Drawing.Size(220, 60);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "       Patients";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnPatient.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPatient.FlatAppearance.BorderSize = 0;
+            this.btnPatient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPatient.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPatient.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnPatient.Image = ((System.Drawing.Image)(resources.GetObject("btnPatient.Image")));
+            this.btnPatient.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPatient.Location = new System.Drawing.Point(0, 140);
+            this.btnPatient.Name = "btnPatient";
+            this.btnPatient.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnPatient.Size = new System.Drawing.Size(220, 60);
+            this.btnPatient.TabIndex = 3;
+            this.btnPatient.Text = "       Patients";
+            this.btnPatient.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPatient.UseVisualStyleBackColor = true;
+            this.btnPatient.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnRdv
             // 
@@ -196,7 +156,10 @@
             // 
             // pnlTitreBar
             // 
-            this.pnlTitreBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.pnlTitreBar.BackColor = System.Drawing.Color.White;
+            this.pnlTitreBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlTitreBar.Controls.Add(this.btnDeconnexion);
+            this.pnlTitreBar.Controls.Add(this.lblCompte);
             this.pnlTitreBar.Controls.Add(this.lblTitrePage);
             this.pnlTitreBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTitreBar.Location = new System.Drawing.Point(220, 0);
@@ -204,33 +167,53 @@
             this.pnlTitreBar.Size = new System.Drawing.Size(1004, 80);
             this.pnlTitreBar.TabIndex = 1;
             // 
+            // btnDeconnexion
+            // 
+            this.btnDeconnexion.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnDeconnexion.BackColor = System.Drawing.Color.Red;
+            this.btnDeconnexion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeconnexion.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeconnexion.ForeColor = System.Drawing.Color.White;
+            this.btnDeconnexion.Location = new System.Drawing.Point(870, 0);
+            this.btnDeconnexion.Name = "btnDeconnexion";
+            this.btnDeconnexion.Size = new System.Drawing.Size(129, 31);
+            this.btnDeconnexion.TabIndex = 13;
+            this.btnDeconnexion.Text = "Déconnexion";
+            this.btnDeconnexion.UseVisualStyleBackColor = false;
+            // 
+            // lblCompte
+            // 
+            this.lblCompte.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblCompte.AutoSize = true;
+            this.lblCompte.Font = new System.Drawing.Font("Century", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCompte.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.lblCompte.Location = new System.Drawing.Point(-4, 0);
+            this.lblCompte.Name = "lblCompte";
+            this.lblCompte.Size = new System.Drawing.Size(198, 23);
+            this.lblCompte.TabIndex = 1;
+            this.lblCompte.Text = "Compte(Roly Spen)";
+            // 
             // lblTitrePage
             // 
             this.lblTitrePage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblTitrePage.AutoSize = true;
             this.lblTitrePage.Font = new System.Drawing.Font("Century", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitrePage.Location = new System.Drawing.Point(17, 44);
+            this.lblTitrePage.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.lblTitrePage.Location = new System.Drawing.Point(-7, 46);
             this.lblTitrePage.Name = "lblTitrePage";
             this.lblTitrePage.Size = new System.Drawing.Size(238, 33);
             this.lblTitrePage.TabIndex = 0;
             this.lblTitrePage.Text = "Nom de la  Page";
             // 
-            // pnlContainer
-            // 
-            this.pnlContainer.Location = new System.Drawing.Point(220, 80);
-            this.pnlContainer.Name = "pnlContainer";
-            this.pnlContainer.Size = new System.Drawing.Size(1004, 553);
-            this.pnlContainer.TabIndex = 2;
-            // 
             // HomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.SystemColors.Menu;
             this.ClientSize = new System.Drawing.Size(1224, 633);
-            this.Controls.Add(this.pnlContainer);
             this.Controls.Add(this.pnlTitreBar);
             this.Controls.Add(this.pnlMenu);
+            this.IsMdiContainer = true;
             this.Name = "HomeForm";
             this.Text = "HomeForm";
             this.Load += new System.EventHandler(this.HomeForm_Load);
@@ -248,14 +231,13 @@
         private System.Windows.Forms.Panel pnlMenu;
         private System.Windows.Forms.Button btnRdv;
         private System.Windows.Forms.Panel pnlLogo;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnPrestation;
+        private System.Windows.Forms.Button btnConsultation;
+        private System.Windows.Forms.Button btnPatient;
         private System.Windows.Forms.Panel pnlTitreBar;
         private System.Windows.Forms.Label lblTitrePage;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel pnlContainer;
+        private System.Windows.Forms.Label lblCompte;
+        private System.Windows.Forms.Button btnDeconnexion;
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Clinique_221.Repository
 {
-    public interface IOrdonnanceMedicamentRepository : IRepository<OrdonnanceMedicamentRepository>
+    public interface IOrdonnanceMedicamentRepository : IRepository<OrdonnanceMedicament>
     {
         List<OrdonnanceMedicament> findAllByOrdonnance(Ordonnance ordonnance);
     }

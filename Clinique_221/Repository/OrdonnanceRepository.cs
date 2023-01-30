@@ -11,8 +11,10 @@ namespace Clinique_221.Repository
 {
     public class OrdonnanceRepository : BaseRepository, IOrdonnanceRepository
     {
+        private readonly string SQL_INSERT = "INSERT INTO ordonnance(date_ordonnance) values(@dateOrdonnance); SELECT SCOPE_IDENTITY()";
         private readonly string SQL_SELECT_BY_ID = "SELECT * FROM ordonnance where id=@idOrdonnance";
-        
+        private readonly string SQL_SELECT_BY_CONSULTATION = "SELECT * FROM ordonnance where id=@idOrdonnance";
+
         private IOrdonnanceMedicamentRepository ordonnanceMedicamentRepo;
         private IConstanteRepository constanteRepo;
 
@@ -59,8 +61,8 @@ namespace Clinique_221.Repository
                             DateOrdonnance = (DateTime)sdr[1],
                         };
                     }
-                    ordonnance.OrdonnanceMedicament = ordonnanceMedicamentRepo.findAllByOrdonnance(ordonnance);
-                    ordonnance.Constantes = constanteRepo.findAllByOrdonnance(ordonnance);
+                    //ordonnance.OrdonnanceMedicament = ordonnanceMedicamentRepo.findAllByOrdonnance(ordonnance);
+                    //ordonnance.Constantes = constanteRepo.findAllByOrdonnance(ordonnance);
                     sdr.Close();
                 }
                 catch (Exception ex)
@@ -80,7 +82,32 @@ namespace Clinique_221.Repository
 
         public Ordonnance persist(Ordonnance obj)
         {
-            throw new NotImplementedException();
+            using (var connexion = new SqlConnection(ChaineDeConnexion))
+            using (var cmd = connexion.CreateCommand())
+            {
+                try
+                {
+                    connexion.Open();
+                    cmd.Connection = connexion;
+                    
+                        cmd.CommandText = SQL_INSERT;
+                        cmd.Parameters.Add("@dateOrdonnance", SqlDbType.Date).Value = obj.DateOrdonnance;
+                        obj.Id = int.Parse(cmd.ExecuteScalar().ToString());
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                finally
+                {
+                    cmd.Dispose();
+
+                    connexion.Close();
+                }
+            }
+            return obj;
+
         }
 
         public Ordonnance remplirData(SqlDataReader sdr)

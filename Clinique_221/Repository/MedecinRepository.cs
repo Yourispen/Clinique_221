@@ -14,6 +14,7 @@ namespace Clinique_221.Repository
     {
         private readonly string SQL_SELECT_ALL = "SELECT * FROM utilisateur where role='Medecin'";
         private readonly string SQL_SELECT_BY_ID = "SELECT * FROM utilisateur where id=@idMedecin and role='Medecin'";
+        private readonly string SQL_SELECT_BY_HEURE_AND_DATE = "SELECT utilisateur.* FROM utilisateur LEFT JOIN rdv ON utilisateur.id = rdv.medecin_id AND rdv.date_rdv = @date AND rdv.horaire_id = @idHoraire WHERE rdv.id IS NULL and utilisateur.role='Medecin'";
 
         ISpecialiteRepository specialiteRepository;
         public MedecinRepository(string chaineDeConnexion,ISpecialiteRepository specialiteRepository)
@@ -65,6 +66,43 @@ namespace Clinique_221.Repository
         public List<Medecin> findAllByDate(DateTime date)
         {
             throw new NotImplementedException();
+        }
+
+        public List<Medecin> findByDateAndHeure(DateTime date, int idHoraire)
+        {
+            List<Medecin> medecins = new List<Medecin>();
+
+            using (var connexion = new SqlConnection(ChaineDeConnexion))
+            using (var cmd = connexion.CreateCommand())
+            {
+                try
+                {
+                    connexion.Open();
+                    cmd.Connection = connexion;
+                    cmd.CommandText = SQL_SELECT_BY_HEURE_AND_DATE;
+                    cmd.Parameters.Add("@date", SqlDbType.Date).Value = date;
+                    cmd.Parameters.Add("@idHoraire", SqlDbType.Int).Value = idHoraire;
+                    SqlDataReader sdr = cmd.ExecuteReader();
+                    while (sdr.Read())
+                    {
+                        Medecin medecin = remplirData(sdr);
+                        medecins.Add(medecin);
+                    }
+                    sdr.Close();
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                finally
+                {
+                    cmd.Dispose();
+
+                    connexion.Close();
+                }
+            }
+            return medecins;
         }
 
         public Medecin findById(int id)

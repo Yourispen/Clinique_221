@@ -12,12 +12,14 @@ namespace Clinique_221.Repository
 {
     public class PatientRepository : BaseRepository, IPatientRepository
     {
+        private readonly string SQL_SELECT_ALL = "SELECT * FROM utilisateur where role='Patient'";
         private readonly string SQL_SELECT_ONE_BY_CODE = "SELECT * FROM utilisateur where code=@codePatient and role='Patient'";
         private readonly string SQL_SELECT_BY_ID = "SELECT * FROM utilisateur where id=@idPatient and role='Patient'";
-        private readonly string SQL_INSERT = "INSERT INTO utilisateur(nom_complet,role,sexe,code,date_naissance,type_patient,nom_parent) values(@nomCompletPatient,@rolePatient,@sexePatient,@codePatient,@dateNaissancePatient,@typePatient,@nomParentPatient); SELECT SCOPE_IDENTITY()";
-        private readonly string SQL_UPDATE = "UPDATE utilisateur SET nom_complet=@nomCompletPatient, role=@rolePatient, sexe=@sexePatient, code=@codePatient, date_naissance=@dateNaissancePatient,type_patient=@typePatient,nom_parent=@nomParentPatient WHERE id=@idPatient";
+        private readonly string SQL_INSERT = "INSERT INTO utilisateur(nom_complet,role,sexe,code,date_naissance) values(@nomCompletPatient,@rolePatient,@sexePatient,@codePatient,@dateNaissancePatient); SELECT SCOPE_IDENTITY()";
+        private readonly string SQL_UPDATE = "UPDATE utilisateur SET nom_complet=@nomCompletPatient, role=@rolePatient, sexe=@sexePatient, code=@codePatient, date_naissance=@dateNaissancePatient WHERE id=@idPatient";
         
         IAntecedentMedicalRepository antecedentMedicalRepo;
+        IRdvRepository rdvRepository;
 
         public PatientRepository(string chaineDeConnexion, IAntecedentMedicalRepository antecedentMedicalRepo)
         {
@@ -32,7 +34,37 @@ namespace Clinique_221.Repository
 
         public List<Patient> findAll()
         {
-            throw new NotImplementedException();
+            List<Patient> patients = new List<Patient>();
+
+            using (var connexion = new SqlConnection(ChaineDeConnexion))
+            using (var cmd = connexion.CreateCommand())
+            {
+                try
+                {
+                    connexion.Open();
+                    cmd.Connection = connexion;
+                    cmd.CommandText = SQL_SELECT_ALL;
+                    SqlDataReader sdr = cmd.ExecuteReader();
+                    while (sdr.Read())
+                    {
+                        Patient patient = remplirData(sdr);
+                        patients.Add(patient);
+                    }
+                    sdr.Close();
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                finally
+                {
+                    cmd.Dispose();
+
+                    connexion.Close();
+                }
+            }
+            return patients;
         }
 
         public List<Patient> findAllByDate(DateTime date)
@@ -62,10 +94,8 @@ namespace Clinique_221.Repository
                             Role = (Role)Enum.Parse(typeof(Role), sdr[4].ToString()),
                             Sexe = (Sexe)Enum.Parse(typeof(Sexe), sdr[5].ToString()),
                             Code = (string)sdr[9],
-                            DateNaissance = (DateTime)sdr[10],
-                            TypePatient = (TypePatient)Enum.Parse(typeof(TypePatient), sdr[11].ToString()),
-                    };
-                        patient.NomParent = patient.TypePatient == TypePatient.Adulte ? null : (string)sdr[12];
+                            DateNaissance = (DateTime)sdr[10]
+                        };
                         patient.AntecedantMedicaux = antecedentMedicalRepo.findAllByPatient(patient.Id);
                     }
                     sdr.Close();
@@ -136,16 +166,19 @@ namespace Clinique_221.Repository
                     else
                     {
                         cmd.CommandText = SQL_INSERT;
+                        string Code = "PAT0000" + findAll().Count.ToString();
+                        obj.Code=Code;
                     }
                     cmd.Parameters.Add("@nomCompletPatient", SqlDbType.VarChar).Value = obj.NomComplet;
                     cmd.Parameters.Add("@rolePatient", SqlDbType.VarChar).Value = obj.Role.ToString();
                     cmd.Parameters.Add("@sexePatient", SqlDbType.VarChar).Value = obj.Sexe.ToString();
                     cmd.Parameters.Add("@codePatient", SqlDbType.VarChar).Value = obj.Code;
                     cmd.Parameters.Add("@dateNaissancePatient", SqlDbType.Date).Value = obj.DateNaissance.Date;
-                    cmd.Parameters.Add("@typePatient", SqlDbType.VarChar).Value = obj.TypePatient.ToString();
-                    cmd.Parameters.Add("@nomParentPatient", SqlDbType.VarChar).Value = obj.NomParent;
                     //cmd.ExecuteNonQuery();
-                    obj.Id= int.Parse(cmd.ExecuteScalar().ToString());
+                    if (obj.Id != 0)
+                        cmd.ExecuteScalar();
+                    else
+                        obj.Id = int.Parse(cmd.ExecuteScalar().ToString());
                 }
                 catch (Exception ex)
                 {
@@ -172,9 +205,7 @@ namespace Clinique_221.Repository
                 Sexe = (Sexe)Enum.Parse(typeof(Sexe), sdr[5].ToString()),
                 Code = (string)sdr[9],
                 DateNaissance = (DateTime)sdr[10],
-                TypePatient = (TypePatient)Enum.Parse(typeof(TypePatient), sdr[11].ToString()),
             };
-            patient.NomParent = patient.TypePatient == TypePatient.Adulte ? null : (string)sdr[12];
             patient.AntecedantMedicaux = antecedentMedicalRepo.findAllByPatient(patient.Id);
 
             return patient;

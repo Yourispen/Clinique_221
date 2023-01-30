@@ -9,5 +9,7 @@ namespace Clinique_221.Repository
 {
     public interface IMedicamentRepository : IRepository<Medicament>
     {
+        Medicament findByCode(string code);
+        List<Medicament> findByOrdonnance(Ordonnance ordonnance);
     }
 }

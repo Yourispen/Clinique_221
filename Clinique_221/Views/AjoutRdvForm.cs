@@ -19,7 +19,6 @@ namespace Clinique_221.Views
         public CheckBox ChboxMasculin { get => chboxMasculin; }
         public CheckBox ChboxFeminin { get => chboxFeminin;}
         public DateTime DtpDateNaissance { get => dtpDateNaissance.Value; set => dtpDateNaissance.Value = value; }
-        public string TxtNomParent { get => txtNomParent.Text.Trim(); set => txtNomParent.Text = value; }
         public CheckBox ChboxConsultation { get => chboxConsultation;}
         public CheckBox ChboxPrestation { get => chboxPrestation;}
         public DateTime DtpDateRdv { get => dtpDateRdv.Value; set => dtpDateRdv.Value = value; }
@@ -44,6 +43,10 @@ namespace Clinique_221.Views
 
         public CheckedListBox ChlboxListeDesAntecedentsMedicaux => chlboxAntecedentMedical;
 
+        public Button BtnAjouterDemandeRdv { get => btnAjouterDemandeRdv; set => throw new NotImplementedException(); }
+
+        public ComboBox CboxHeure => cboxHeure;
+
         public AjoutRdvForm()
         {
             InitializeComponent();
@@ -61,6 +64,7 @@ namespace Clinique_221.Views
         public event EventHandler eventChoixTypeConsultation;
         public event EventHandler eventChoixTypePrestation;
         public event EventHandler eventChoixDateRdv;
+        public event EventHandler eventChoixHeureRdv;
 
         void activeEvent()
         {
@@ -74,6 +78,7 @@ namespace Clinique_221.Views
             btnRecherchePatient.Click += delegate { eventRecherchePatientParCode.Invoke(this, EventArgs.Empty); };
             btnAjouterDemandeRdv.Click += delegate { eventAjouterDemandeRdv.Invoke(this, EventArgs.Empty); };
             btnAnnulerDemandeRdv.Click += delegate { eventAnnulerDemandeRdv.Invoke(this, EventArgs.Empty); };
+            cboxHeure.SelectedIndexChanged += delegate { eventChoixHeureRdv.Invoke(this, EventArgs.Empty); };
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -136,11 +141,16 @@ namespace Clinique_221.Views
 
         }
 
+        
+        public void setListeHorairesBindingSource(BindingSource horaireList)
+        {
+            cboxHeure.DataSource = horaireList;
+        }
+
         public void setListeTypePrestationsBindingSource(BindingSource prestationList)
         {
             chlboxListeDesPrestations.DataSource = prestationList;
         }
-
         public void setListeAntecedentMedicalBindingSource(BindingSource antecedentMedicalList)
         {
             chlboxAntecedentMedical.DataSource = antecedentMedicalList;
@@ -152,6 +162,16 @@ namespace Clinique_221.Views
         }
 
         private void chlboxListeDesPrestations_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnValideHeure_Click(object sender, EventArgs e)
         {
 
         }

@@ -13,9 +13,9 @@ namespace Clinique_221.Models
         private string nom;
         private List<OrdonnanceMedicament> ordonnanceMedicaments = new List<OrdonnanceMedicament>();
 
+        public int Id { get => id; set => id = value; }
         public string Code { get => code; set => code = value; }
         public string Nom { get => nom; set => nom = value; }
-        public int Id { get => id; set => id = value; }
         public List<OrdonnanceMedicament> OrdonnanceMedicaments { get => ordonnanceMedicaments; set => ordonnanceMedicaments = value; }
 
         public override string ToString()

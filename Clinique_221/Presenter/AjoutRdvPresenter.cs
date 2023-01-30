@@ -29,15 +29,19 @@ namespace Clinique_221.Presenter
             choisirSexeMasculinHandle(ajoutRdvView, EventArgs.Empty);
             choisirDateRdvHandle(ajoutRdvView, EventArgs.Empty);
 
+            ajoutRdvView.Show();
+
         }
 
         BindingSource bindingTypePrestationListeListe = new BindingSource();
         BindingSource bindingMedecinListe = new BindingSource();
         BindingSource bindingAntecedentMedicalListe = new BindingSource();
+        BindingSource bindingHoraireListe = new BindingSource();
 
         IEnumerable<TypePrestation> typePrestationListe = new List<TypePrestation>();
         IEnumerable<Medecin> medecinListe = new List<Medecin>();
         IEnumerable<AntecedentMedical> antecedentMedicalListe = new List<AntecedentMedical>();
+        IEnumerable<Horaire> horaireListe = new List<Horaire>();
 
         public void initialise()
         {
@@ -47,10 +51,13 @@ namespace Clinique_221.Presenter
             bindingTypePrestationListeListe.DataSource = typePrestationListe;
             bindingMedecinListe.DataSource = medecinListe;
             bindingAntecedentMedicalListe.DataSource = antecedentMedicalListe;
+            bindingHoraireListe.DataSource = horaireListe;
 
             ajoutRdvView.setListeTypePrestationsBindingSource(bindingTypePrestationListeListe);
             ajoutRdvView.setListeDesMedecinBindingSource(bindingMedecinListe);
             ajoutRdvView.setListeAntecedentMedicalBindingSource(bindingAntecedentMedicalListe);
+            ajoutRdvView.setListeHorairesBindingSource(bindingHoraireListe);
+            ajoutRdvView.BtnAjouterDemandeRdv.Visible = false;
         }
 
         public void callBackEvent()
@@ -65,6 +72,49 @@ namespace Clinique_221.Presenter
             ajoutRdvView.eventRecherchePatientParCode += rechercherPatientHandle;
             ajoutRdvView.eventAjouterDemandeRdv += creerRdvHandle;
             ajoutRdvView.eventAnnulerDemandeRdv += annulerDemandeRdvHandle;
+            ajoutRdvView.eventChoixHeureRdv += choisirHeureRdvHandle;
+        }
+
+        private void choisirHeureRdvHandle(object sender, EventArgs e)
+        {
+            Horaire horaire = ajoutRdvView.CboxHeure.SelectedItem as Horaire;
+            if (ajoutRdvView.ChboxConsultation.Checked)
+            {
+                bindingMedecinListe.Clear();
+                medecinListe = serviceClinique.listerMedecin(ajoutRdvView.DtpDateRdv, horaire.Id);
+                bindingMedecinListe.DataSource = medecinListe;
+                ajoutRdvView.BtnAjouterDemandeRdv.Visible = true;
+            }
+            else
+            {
+                ajoutRdvView.BtnAjouterDemandeRdv.Visible = true;
+            }
+        }
+
+        private void rechercheDispoHandle(object sender, EventArgs e)
+        {
+            if (ajoutRdvView.ChboxConsultation.Checked)
+            {
+                /*bindingMedecinListe.Clear();
+                medecinListe = serviceClinique.listerMedecin(ajoutRdvView.DtpDateRdv,int.Parse(ajoutRdvView.TxtHeure));
+                bindingMedecinListe.DataSource = medecinListe;
+                if ((medecinListe as List<Medecin>).Count > 0)
+                {
+                    ajoutRdvView.BtnAjouterDemandeRdv.Visible = true;
+                }*/
+            }
+            else
+            {
+                /*List<Prestation> prestations = serviceClinique.listerPrestationParHeureEtDate(ajoutRdvView.DtpDateRdv, ajoutRdvView.TxtHeure);
+                if(prestations.Count > 0)
+                {
+                    MessageBox.Show("Plage Occupée");
+                }
+                else
+                {
+                    ajoutRdvView.BtnAjouterDemandeRdv.Visible = true;
+                }*/
+            }
         }
 
         private void annulerDemandeRdvHandle(object sender, EventArgs e)
@@ -78,10 +128,7 @@ namespace Clinique_221.Presenter
             {
                 NomComplet = ajoutRdvView.TxtNomComplet,
                 Sexe = (Sexe)Enum.Parse(typeof(Sexe), ajoutRdvView.ChboxFeminin.Checked?Sexe.F.ToString(): Sexe.M.ToString()),
-                DateNaissance = ajoutRdvView.DtpDateNaissance,
-                NomParent = ajoutRdvView.TxtNomParent,
-                TypePatient = (TypePatient)Enum.Parse(typeof(TypePatient), "Adulte"),
-                Code="PAT00004"
+                DateNaissance = ajoutRdvView.DtpDateNaissance
             };
             foreach (var antMed in ajoutRdvView.ChlboxListeDesAntecedentsMedicaux.CheckedItems)
             {
@@ -94,16 +141,18 @@ namespace Clinique_221.Presenter
                 Patient = patient,
                 TypeRdv = (TypeRdv)Enum.Parse(typeof(TypeRdv), ajoutRdvView.ChboxConsultation.Checked ? TypeRdv.Consultation.ToString() : TypeRdv.Prestation.ToString()),
                 DateRdv = ajoutRdvView.DtpDateRdv,
+                Horaire = ajoutRdvView.CboxHeure.SelectedItem as Horaire,
+                Medecin = bindingMedecinListe.Current as Medecin
             };
-            if (ajoutRdvView.ChboxConsultation.Checked)
+            /*if (ajoutRdvView.ChboxConsultation.Checked)
             {
                 rdv.Medecin = bindingMedecinListe.Current as Medecin;
-                Consultation consultation = Fabrique.getService().ajouterConsultation(new Consultation() { DateConsultation = ajoutRdvView.DtpDateRdv, EtatConsultation = Etat.EnAttente });
+                Consultation consultation = Fabrique.getService().ajouterConsultation(new Consultation() { DateConsultation = ajoutRdvView.DtpDateRdv, EtatConsultation = Etat.EnAttente, Heure = rdv.Heure });
                 rdv.Consultation=consultation;
             }
             else
             {
-                Prestation prestation =Fabrique.getService().ajouterPrestation(new Prestation() { DatePrestation = ajoutRdvView.DtpDateRdv, EtatPrestation = Etat.EnAttente });
+                Prestation prestation =Fabrique.getService().ajouterPrestation(new Prestation() { DatePrestation = ajoutRdvView.DtpDateRdv, EtatPrestation = Etat.EnAttente,Heure=rdv.Heure });
                 foreach (var typePrestation in ajoutRdvView.ChlboxListeDesPrestations.CheckedItems)
                 {
                     prestation.TypePrestations.Add(typePrestation as TypePrestation);
@@ -111,9 +160,11 @@ namespace Clinique_221.Presenter
                 Fabrique.getService().ajouterPrestationTypePrestation(prestation);
                 rdv.Prestation=prestation;
                 rdv.Rp=new Rp() { Id=38,Email="rp@gmail.com",Password="ism123",NomComplet="Responsable des prestations",Disponibilite=Disponibilite.Disponible};
-            }
+            }*/
             rdv=Fabrique.getService().ajouterRdv(rdv);
             viderInfoPatient();
+            ajoutRdvView.BtnAjouterDemandeRdv.Visible = false;
+            MessageBox.Show("Rendez-vous créée avec succès.");
 
         }
         private Patient recupererPatient(Patient patient)
@@ -146,6 +197,7 @@ namespace Clinique_221.Presenter
         }
         private void choisirPrestationHandle(object sender, EventArgs e)
         {
+            ajoutRdvView.BtnAjouterDemandeRdv.Visible = false;
             bool check = ajoutRdvView.ChboxPrestation.Checked;
             ajoutRdvView.ChboxConsultation.Checked = !check;
             ajoutRdvView.LblMedecin.Visible = !check;
@@ -153,6 +205,7 @@ namespace Clinique_221.Presenter
         }
         private void choisirConsultationHandle(object sender, EventArgs e)
         {
+            ajoutRdvView.BtnAjouterDemandeRdv.Visible = false;
             bool check = ajoutRdvView.ChboxConsultation.Checked;
             ajoutRdvView.ChboxPrestation.Checked = !check;
             ajoutRdvView.LblListePrestation.Visible = !check;
@@ -168,7 +221,16 @@ namespace Clinique_221.Presenter
         }
         private void choisirDateRdvHandle(object sender, EventArgs e)
         {
-
+            if (ajoutRdvView.ChboxConsultation.Checked)
+            {
+                horaireListe = serviceClinique.listerHoraire();
+                bindingHoraireListe.DataSource = horaireListe;
+            }
+            else
+            {
+                horaireListe = serviceClinique.listerHoraireDispoParDate(ajoutRdvView.DtpDateRdv, TypeRdv.Prestation);
+                bindingHoraireListe.DataSource = horaireListe;
+            }
         }
         private void rechercherPatientHandle(object sender, EventArgs e)
         {
@@ -187,7 +249,6 @@ namespace Clinique_221.Presenter
             ajoutRdvView.ChboxMasculin.Checked = patient.Sexe == Sexe.M;
             ajoutRdvView.ChboxFeminin.Checked = patient.Sexe == Sexe.F;
             ajoutRdvView.DtpDateNaissance = patient.DateNaissance;
-            ajoutRdvView.TxtNomParent = patient.NomParent;
             List<AntecedentMedical> antecedentMedicaux = patient.AntecedantMedicaux;
             for (int i=0;i< bindingAntecedentMedicalListe.Count;i++)
             {
@@ -210,7 +271,6 @@ namespace Clinique_221.Presenter
             ajoutRdvView.ChboxMasculin.Checked = false;
             ajoutRdvView.ChboxFeminin.Checked = true;
             ajoutRdvView.DtpDateNaissance = DateTime.Now;
-            ajoutRdvView.TxtNomParent = "";
             patientSearch = null;
             for (int i = 0; i < bindingAntecedentMedicalListe.Count; i++)
             {

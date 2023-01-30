@@ -15,8 +15,6 @@ namespace Clinique_221.Models
     {
         private DateTime dateNaissance;
         private string code;
-        private string nomParent;
-        private TypePatient typePatient;
         private List<AntecedentMedical> antecedentMedicaux=new List<AntecedentMedical>();
         private List<Rdv> rdvs=new List<Rdv>();
 
@@ -27,10 +25,8 @@ namespace Clinique_221.Models
 
         public DateTime DateNaissance { get => dateNaissance; set => dateNaissance = value; }
         public string Code { get => code; set => code = value; }
-        public string NomParent { get => nomParent; set => nomParent = value; }
         public List<AntecedentMedical> AntecedantMedicaux { get => antecedentMedicaux; set => antecedentMedicaux = value; }
         public List<Rdv> Rdvs { get => rdvs; set => rdvs = value; }
-        public TypePatient TypePatient { get => typePatient; set => typePatient = value; }
 
         
     }

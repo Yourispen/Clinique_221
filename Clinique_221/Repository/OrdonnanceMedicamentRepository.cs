@@ -12,6 +12,7 @@ namespace Clinique_221.Repository
     public class OrdonnanceMedicamentRepository : BaseRepository, IOrdonnanceMedicamentRepository
     {
         private readonly string SQL_SELECT_ALL_BY_ORDONNANCE = "SELECT * FROM ordonnance_medicament_posologie where ordonnance_id=@idOrdonnance";
+        private readonly string SQL_INSERT = "INSERT INTO ordonnance_medicament_posologie(ordonnance_id,medicament_id) values(@idOrdonnance,@idMedicament); SELECT SCOPE_IDENTITY()";
 
         private IMedicamentRepository medicamentRepo;
 
@@ -21,17 +22,17 @@ namespace Clinique_221.Repository
             this.medicamentRepo = medicamentRepo;
         }
 
-        public void delete(OrdonnanceMedicamentRepository obj)
+        public void delete(OrdonnanceMedicament obj)
         {
             throw new NotImplementedException();
         }
 
-        public List<OrdonnanceMedicamentRepository> findAll()
+        public List<OrdonnanceMedicament> findAll()
         {
             throw new NotImplementedException();
         }
 
-        public List<OrdonnanceMedicamentRepository> findAllByDate(DateTime date)
+        public List<OrdonnanceMedicament> findAllByDate(DateTime date)
         {
             throw new NotImplementedException();
         }
@@ -52,17 +53,7 @@ namespace Clinique_221.Repository
                     SqlDataReader sdr = cmd.ExecuteReader();
                     while (sdr.Read())
                     {
-                        OrdonnanceMedicament ordonnanceMedicament = new OrdonnanceMedicament()
-                        {
-                            QteMedicament = (int)sdr[0],
-                            Posologie=new Posologie()
-                            {
-                                QteParPrise = (int)sdr[1],
-                                NbrePrise = (int)sdr[2],
-                                Periode= (string)sdr[3]
-                            },
-                            Medicament = medicamentRepo.findById((int)sdr[5])
-                        };
+                        OrdonnanceMedicament ordonnanceMedicament = remplirData(sdr);
                         ordonnanceMedicament.Ordonnance = ordonnance;
                         ordonnanceMedicaments.Add(ordonnanceMedicament);
                     }
@@ -81,24 +72,61 @@ namespace Clinique_221.Repository
                 }
             }
             return ordonnanceMedicaments;
+
         }
 
-        public OrdonnanceMedicamentRepository findById(int id)
+        public OrdonnanceMedicament findById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public OrdonnanceMedicamentRepository persist(OrdonnanceMedicamentRepository obj)
+        public OrdonnanceMedicament persist(OrdonnanceMedicament obj)
         {
-            throw new NotImplementedException();
+            using (var connexion = new SqlConnection(ChaineDeConnexion))
+            using (var cmd = connexion.CreateCommand())
+            {
+                try
+                {
+                    connexion.Open();
+                    cmd.Connection = connexion;
+                    cmd.CommandText = SQL_INSERT;
+                    cmd.Parameters.Add("@idOrdonnance", SqlDbType.Int).Value = obj.Ordonnance.Id;
+                    cmd.Parameters.Add("@idMedicament", SqlDbType.Int).Value = obj.Medicament.Id;
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                finally
+                {
+                    cmd.Dispose();
+
+                    connexion.Close();
+                }
+            }
+            return obj;
         }
 
-        public OrdonnanceMedicamentRepository remplirData(SqlDataReader sdr)
+        public OrdonnanceMedicament remplirData(SqlDataReader sdr)
         {
-            throw new NotImplementedException();
+            OrdonnanceMedicament ordonnanceMedicament = new OrdonnanceMedicament()
+            {
+                /*QteMedicament = (int)sdr[0],
+                Posologie = new Posologie()
+                {
+                    QteParPrise = (int)sdr[1],
+                    NbrePrise = (int)sdr[2],
+                    Periode = (string)sdr[3]
+                },*/
+                Medicament = medicamentRepo.findById((int)sdr[5])
+
+            };
+            return ordonnanceMedicament;
         }
 
-        public void update(OrdonnanceMedicamentRepository obj)
+        public void update(OrdonnanceMedicament obj)
         {
             throw new NotImplementedException();
         }

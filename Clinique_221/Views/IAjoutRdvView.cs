@@ -20,7 +20,6 @@ namespace Clinique_221.Views
         CheckBox ChboxMasculin { get;}
         CheckBox ChboxFeminin { get;}
         DateTime DtpDateNaissance { get; set; }
-        string TxtNomParent { get; set; }
         CheckedListBox ChlboxListeDesAntecedentsMedicaux { get; }
         GroupBox GboxRdv { get;}
         Panel PnlAjoutRdv { get;}
@@ -31,6 +30,8 @@ namespace Clinique_221.Views
         Label LblMedecin { get; }
         ComboBox CboxListeDesMedecin { get; }
         DateTime DtpDateRdv { get; set; }
+        Button BtnAjouterDemandeRdv { get; set; }
+        ComboBox CboxHeure { get; }
 
         event EventHandler eventAjouterDemandeRdv;
         event EventHandler eventAnnulerDemandeRdv;
@@ -42,10 +43,14 @@ namespace Clinique_221.Views
         event EventHandler eventChoixTypeConsultation;
         event EventHandler eventChoixTypePrestation;
         event EventHandler eventChoixDateRdv;
+        event EventHandler eventChoixHeureRdv;
+
+        void Show();
 
         void setListeTypePrestationsBindingSource(BindingSource prestationList);
         void setListeAntecedentMedicalBindingSource(BindingSource antecedentMedicalList);
         void setListeDesMedecinBindingSource(BindingSource typePrestationList);
+        void setListeHorairesBindingSource(BindingSource horaireList);
 
     }
 }

@@ -9,5 +9,6 @@ namespace Clinique_221.Repository
 {
     public interface IMedecinRepository : IRepository<Medecin>
     {
+        List<Medecin> findByDateAndHeure(DateTime date, int heure);
     }
 }

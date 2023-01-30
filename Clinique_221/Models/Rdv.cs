@@ -21,8 +21,7 @@ namespace Clinique_221.Models
         private Medecin medecin;
         private Rp rp;
         private Etat etatRdv;
-        private Prestation prestation;
-        private Consultation consultation;
+        private Horaire horaire;
 
         public Rdv()
         {
@@ -37,7 +36,6 @@ namespace Clinique_221.Models
         public Medecin Medecin { get => medecin; set => medecin = value; }
         public Rp Rp { get => rp; set => rp = value; }
         public Etat EtatRdv { get => etatRdv; set => etatRdv = value; }
-        public Prestation Prestation { get => prestation; set => prestation = value; }
-        public Consultation Consultation { get => consultation; set => consultation = value; }
+        public Horaire Horaire { get => horaire; set => horaire = value; }
     }
 }

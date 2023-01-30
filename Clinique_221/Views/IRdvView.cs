@@ -11,6 +11,11 @@ namespace Clinique_221.Views
     {
         //Propriété
         string TxtRecherchePatient { get; set; }
+        DateTime DtpDateRdv { get; set; }
+        Button BtnAnnulerRdv { get;}
+        Button BtnValiderRdv { get; }
+        Button BtnAjouterRdv { get; }
+        DataGridView DtgvListeRdv { get;}
         //Event
         event EventHandler eventRecherchePatient;
         event EventHandler eventAjouterPatient;
@@ -18,7 +23,9 @@ namespace Clinique_221.Views
         event EventHandler eventAnnulerRdv;
         event EventHandler eventValiderRdv;
         event EventHandler eventSelectionLigneDtgv;
+        event EventHandler eventfiltrerParDate;
         //Methodes
+        void Show();
         void setRdvBindingSource(BindingSource RdvList);
     }
 }

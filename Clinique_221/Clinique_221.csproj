@@ -270,8 +270,12 @@
     <Compile Include="Models\Constante.cs" />
     <Compile Include="Models\Consultation.cs" />
     <Compile Include="Models\Disponibilite.cs" />
+    <Compile Include="Models\Dto\ConsultationDto.cs" />
+    <Compile Include="Models\Dto\PatientDto.cs" />
+    <Compile Include="Models\Dto\PrestationDto.cs" />
     <Compile Include="Models\Dto\RdvDto.cs" />
     <Compile Include="Models\Etat.cs" />
+    <Compile Include="Models\Horaire.cs" />
     <Compile Include="Models\Medecin.cs" />
     <Compile Include="Models\Medicament.cs" />
     <Compile Include="Models\Ordonnance.cs" />
@@ -285,9 +289,23 @@
     <Compile Include="Models\Specialite.cs" />
     <Compile Include="Models\TypePrestation.cs" />
     <Compile Include="Models\Utilisateur.cs" />
+    <Compile Include="Presenter\AjoutConsultationPresenter.cs" />
+    <Compile Include="Presenter\AjoutPrestationPresenter.cs" />
     <Compile Include="Presenter\AjoutRdvPresenter.cs" />
+    <Compile Include="Presenter\ConnexionPresenter.cs" />
+    <Compile Include="Presenter\ConsultationPresenter.cs" />
+    <Compile Include="Presenter\IAjoutConsultationPresenter.cs" />
+    <Compile Include="Presenter\IAjoutPrestationPresenter.cs" />
     <Compile Include="Presenter\IAjoutRdvPresenter.cs" />
+    <Compile Include="Presenter\IConsultationPresenter.cs" />
+    <Compile Include="Presenter\IMenuPresenter.cs" />
+    <Compile Include="Presenter\IPatientPresenter.cs" />
+    <Compile Include="Presenter\IConnexionPresenter.cs" />
+    <Compile Include="Presenter\IPrestationPresenter.cs" />
     <Compile Include="Presenter\IRdvPresenter.cs" />
+    <Compile Include="Presenter\MenuPresenter.cs" />
+    <Compile Include="Presenter\PatientPresenter.cs" />
+    <Compile Include="Presenter\PrestationPresenter.cs" />
     <Compile Include="Presenter\RdvPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -295,13 +313,16 @@
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\ConstanteRepository.cs" />
     <Compile Include="Repository\ConsultationRepository.cs" />
+    <Compile Include="Repository\HoraireRepository.cs" />
     <Compile Include="Repository\IAntecedentMedicalRepository.cs" />
     <Compile Include="Repository\IConstanteRepository.cs" />
     <Compile Include="Repository\IConsultationRepository.cs" />
+    <Compile Include="Repository\IHoraireRepository.cs" />
     <Compile Include="Repository\IMedicamentRepository.cs" />
     <Compile Include="Repository\IOrdonnanceMedicamentRepository.cs" />
     <Compile Include="Repository\IOrdonnanceRepository.cs" />
     <Compile Include="Repository\IPrestationRepository.cs" />
+    <Compile Include="Repository\IUtilisateurRepository.cs" />
     <Compile Include="Repository\MedicamentRepository.cs" />
     <Compile Include="Repository\OrdonnanceMedicamentRepository.cs" />
     <Compile Include="Repository\OrdonnanceRepository.cs" />
@@ -317,8 +338,21 @@
     <Compile Include="Repository\TypePrestationRepository.cs" />
     <Compile Include="Repository\RdvRepository.cs" />
     <Compile Include="Repository\SpecialiteRepository.cs" />
+    <Compile Include="Repository\UtilisateurRepository.cs" />
     <Compile Include="Services\IServiceClinique.cs" />
     <Compile Include="Services\ServiceClinique.cs" />
+    <Compile Include="Views\AjoutConsultationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AjoutConsultationForm.Designer.cs">
+      <DependentUpon>AjoutConsultationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AjoutPrestationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AjoutPrestationForm.Designer.cs">
+      <DependentUpon>AjoutPrestationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\AjoutRdvForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -330,6 +364,12 @@
     </Compile>
     <Compile Include="Views\ConnexionForm.Designer.cs">
       <DependentUpon>ConnexionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConsultationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ConsultationForm.Designer.cs">
+      <DependentUpon>ConsultationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Form1.cs">
       <SubType>Form</SubType>
@@ -343,14 +383,38 @@
     <Compile Include="Views\HomeForm.Designer.cs">
       <DependentUpon>HomeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\IAjoutConsultationView.cs" />
+    <Compile Include="Views\IAjoutPrestationView.cs" />
     <Compile Include="Views\IAjoutRdvView.cs" />
     <Compile Include="Views\IConnexionView.cs" />
+    <Compile Include="Views\IConsultationView.cs" />
+    <Compile Include="Views\IHomeView.cs" />
+    <Compile Include="Views\IPatientView.cs" />
+    <Compile Include="Views\IPrestationView.cs" />
     <Compile Include="Views\IRdvView.cs" />
+    <Compile Include="Views\PatientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PatientForm.Designer.cs">
+      <DependentUpon>PatientForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PrestationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PrestationForm.Designer.cs">
+      <DependentUpon>PrestationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\RdvForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\RdvForm.Designer.cs">
       <DependentUpon>RdvForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UserForm.Designer.cs">
+      <DependentUpon>UserForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -361,17 +425,32 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\AjoutConsultationForm.resx">
+      <DependentUpon>AjoutConsultationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AjoutPrestationForm.resx">
+      <DependentUpon>AjoutPrestationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\AjoutRdvForm.resx">
       <DependentUpon>AjoutRdvForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConnexionForm.resx">
       <DependentUpon>ConnexionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ConsultationForm.resx">
+      <DependentUpon>ConsultationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\HomeForm.resx">
       <DependentUpon>HomeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PatientForm.resx">
+      <DependentUpon>PatientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PrestationForm.resx">
+      <DependentUpon>PrestationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\RdvForm.resx">
       <DependentUpon>RdvForm.cs</DependentUpon>
